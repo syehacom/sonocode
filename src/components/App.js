@@ -86,9 +86,9 @@ function App() {
 
     useEffect(() => {
         if (title === "") {
-            document.title = "Sketchify - Untitled";
+            document.title = "syehacom - Untitled";
         } else {
-            document.title = "Sketchify - " + title;
+            document.title = "syehacom - " + title;
         }
 
         if (!(html === "" && css === "" && js === "")) {
@@ -119,7 +119,7 @@ function App() {
     return (
         <div className="wrap-box">
             <nav className="nav-bar box1">
-                <div className="logo">Sketchify</div>
+                <div className="logo">プログラミングを楽しもう！</div>
                 <input
                     className="title"
                     id="title-input"
@@ -134,7 +134,7 @@ function App() {
                 <div className="btn-container">
                     <div className="clearCode" onClick={clearEditor}>
                         <FontAwesomeIcon icon={faEraser} />
-                        <div>Clear Code</div>
+                        <div>すべてクリア</div>
                     </div>
                     <a
                         href=" "
@@ -213,13 +213,13 @@ function App() {
                 </div>
             </Split>
             <a
-                href="https://github.com/s-katte/Sketchify"
+                href="https://github.com/syehacom"
                 target="_blank"
                 rel="noopener noreferrer"
                 id="github-link"
                 className="text-center">
                 <FontAwesomeIcon icon={faGithub} />
-                <span>&nbsp;GitHub</span>
+                <span>&nbsp;syehacom</span>
             </a>
         </div>
     );

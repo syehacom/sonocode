@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://192.168.1.108:8000/";
+const ENDPOINT = "https://opencode.syeha.com/";
 
 const SocketContext = React.createContext();
 

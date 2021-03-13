@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://opencode.syeha.com/";
 
 const ClientSocket = ({ username, room }) => {
     const socketRef = useRef();
