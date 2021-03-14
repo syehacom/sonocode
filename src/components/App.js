@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
-import useLocalStorage from "../hooks/useLocalStorage";
 import Split from "react-split";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faDownload,
     faEraser,
-    faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+// import useLocalStorage from "../hooks/useLocalStorage";
+
+import firebase from "firebase/app";
+import "firebase/database";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBosPi-THxVuN1ohEY4_j5j4oYCQvrCVT8",
+    authDomain: "opencode-be58c.firebaseapp.com",
+    databaseURL: "https://opencode-be58c-default-rtdb.firebaseio.com",
+    projectId: "opencode-be58c",
+    storageBucket: "opencode-be58c.appspot.com",
+    messagingSenderId: "619383868360",
+    appId: "1:619383868360:web:d44cf4e42d20aa18a54efd",
+};
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 const introDoc = `<html>
       <body>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
         <div style="font-family: 'Lato'" class="intro-text">
         <h1 style="font-size: 25px">
-        Welcome to <span style="font-family: 'Rubik'; color:#b8b8b8">Sketchify</span>
+        はじめてみよう <span style="font-family: 'Rubik'; color:#b8b8b8">プログラミング</span>
         </h1>
-        <p style="font-size: 20px">Give your imagination a head-start!</p>
+        <p style="font-size: 20px"></p>
         </div></div>
       </body>
       <style>
@@ -32,12 +46,39 @@ const introDoc = `<html>
     </html>`;
 
 function App() {
-    const [html, setHtml] = useLocalStorage("html", "");
-    const [css, setCss] = useLocalStorage("css", "");
-    const [js, setJs] = useLocalStorage("js", "");
-    const [title, setTitle] = useLocalStorage("title", "");
+    // const [html, setHtml] = useLocalStorage("html", "");
+    // const [css, setCss] = useLocalStorage("css", "");
+    // const [js, setJs] = useLocalStorage("js", "");
+    // const [title, setTitle] = useLocalStorage("title", "");
+    // const [srcDoc, setSrcDoc] = useState("");
+    const [html, setHtml] = useState("");
+    const [css, setCss] = useState("");
+    const [js, setJs] = useState("");
+    const [title, setTitle] = useState("");
     const [srcDoc, setSrcDoc] = useState("");
-    // HTML
+
+    useEffect(() => {
+        database.ref("sketchify-html").on("value", (data) => {
+            console.log(data.val());
+            setHtml(data.val());
+        });
+
+        database.ref("sketchify-css").on("value", (data) => {
+            console.log(data.val());
+            setCss(data.val());
+        });
+
+        database.ref("sketchify-js").on("value", (data) => {
+            console.log(data.val());
+            setJs(data.val());
+        });
+
+        database.ref("sketchify-title").on("value", (data) => {
+            console.log(data.val());
+            setTitle(data.val());
+        });
+    }, []);
+
     const downloadHtml = () => {
         let htmlContent = `
 <!DOCTYPE html>
@@ -82,6 +123,7 @@ function App() {
         setHtml("");
         setCss("");
         setJs("");
+        setTitle("");
     };
 
     useEffect(() => {
@@ -119,7 +161,7 @@ function App() {
     return (
         <div className="wrap-box">
             <nav className="nav-bar box1">
-                <div className="logo">プログラミングを楽しもう！</div>
+                <div className="logo">はじめてみようプログラミング</div>
                 <input
                     className="title"
                     id="title-input"
@@ -134,7 +176,7 @@ function App() {
                 <div className="btn-container">
                     <div className="clearCode" onClick={clearEditor}>
                         <FontAwesomeIcon icon={faEraser} />
-                        <div>すべてクリア</div>
+                        <div>クリア</div>
                     </div>
                     <a
                         href=" "
@@ -160,14 +202,7 @@ function App() {
                         <FontAwesomeIcon icon={faDownload} />
                         <div>JS</div>
                     </a>
-                    <a
-                        href="/colabDetails"
-                        id="collaborate-btn"
-                        title="Collaborate">
-                        <FontAwesomeIcon icon={faUsers} />
-                        <div>Collaborate</div>
-                    </a>
-                </div>
+                 </div>
             </nav>
             <Split sizes={[50, 50]} direction="vertical" className="box2">
                 <Split className="pane top-pane box21" sizes={[33, 34, 33]}>

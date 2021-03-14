@@ -55,7 +55,7 @@ export default function Editor(props) {
         value,
         onChange,
         refer,
-        performSend,
+        // performSend,
     } = props;
 
     // ref = useRef(null);
@@ -74,9 +74,9 @@ export default function Editor(props) {
         }
     }
 
-    const handleKeyUp = () => {
-        performSend();
-    };
+    // const handleKeyUp = () => {
+    //     performSend();
+    // };
 
     // show html tag suggestion, only apply when editor mode is 'text/html'
     function completeAfter(editor, pred) {
@@ -100,7 +100,7 @@ export default function Editor(props) {
                 onKeyDown={handleKeyDown}
                 value={value}
                 className="code-mirror-wrapper"
-                onKeyUp={handleKeyUp}
+                // onKeyUp={handleKeyUp}
                 ref={refer}
                 options={{
                     mode: language,
