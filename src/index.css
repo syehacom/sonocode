@@ -6,7 +6,7 @@ body,
     margin: 0;
     height: 100%;
     font-family: "Inter", sans-serif;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 * {
@@ -253,6 +253,11 @@ body,
     height: 100% !important;
 }
 
+.CodeMirror-code{
+    font-family: "monospace";
+    font-size: 15px;
+}
+
 .code-mirror-wrapper {
     flex-grow: 1;
     border-bottom-right-radius: 0.5rem;
@@ -302,3 +307,30 @@ body,
     transform: translateY(5px);
 }
 
+
+.entry-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.input-row label {
+  min-width: 120px;
+  margin: 0;
+}
+.input-row input {
+  flex: 1;
+}
+
+.btn-entry {
+  margin-top: 16px;
+  width: 120px;
+}

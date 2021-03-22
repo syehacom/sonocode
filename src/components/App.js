@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Editor from "./Editor";
 import Split from "react-split";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faDownload,
-    faEraser,
-} from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faDownload, faEraser } from "@fortawesome/free-solid-svg-icons";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import { makeStyles } from "@material-ui/core";
+// import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import firebase from "../utils/Firebase";
+import FormDialog from "./FormDialog";
+import Skyway from "./Skyway";
+
 // import useLocalStorage from "../hooks/useLocalStorage";
-
-import firebase from "firebase/app";
-import "firebase/database";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBosPi-THxVuN1ohEY4_j5j4oYCQvrCVT8",
-    authDomain: "opencode-be58c.firebaseapp.com",
-    databaseURL: "https://opencode-be58c-default-rtdb.firebaseio.com",
-    projectId: "opencode-be58c",
-    storageBucket: "opencode-be58c.appspot.com",
-    messagingSenderId: "619383868360",
-    appId: "1:619383868360:web:d44cf4e42d20aa18a54efd",
-};
-firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 const introDoc = `<html>
@@ -54,30 +43,33 @@ function App() {
     const [html, setHtml] = useState("");
     const [css, setCss] = useState("");
     const [js, setJs] = useState("");
-    const [title, setTitle] = useState("");
+    const [count, setCount] = useState(0);
     const [srcDoc, setSrcDoc] = useState("");
+    const [value, setValue] = useState("");
+    const [open, setOpen] = useState(false);
+    const [selected, setSelected] = useState(false)
+
+    const title = value;
 
     useEffect(() => {
-        database.ref("sketchify-html").on("value", (data) => {
-            console.log(data.val());
+        // setOpen(true);
+
+        database.ref(title + "/html").on("value", (data) => {
             setHtml(data.val());
         });
 
-        database.ref("sketchify-css").on("value", (data) => {
-            console.log(data.val());
+        database.ref(title + "/css").on("value", (data) => {
             setCss(data.val());
         });
 
-        database.ref("sketchify-js").on("value", (data) => {
-            console.log(data.val());
+        database.ref(title + "/js").on("value", (data) => {
             setJs(data.val());
         });
 
-        database.ref("sketchify-title").on("value", (data) => {
-            console.log(data.val());
-            setTitle(data.val());
+        database.ref(title + "/count").on("value", (data) => {
+            setCount(data.val());
         });
-    }, []);
+    }, [title]);
 
     const downloadHtml = () => {
         let htmlContent = `
@@ -120,17 +112,37 @@ function App() {
     };
 
     const clearEditor = () => {
-        setHtml("");
-        setCss("");
-        setJs("");
-        setTitle("");
+        database.ref(title + "/html").set("");
+        database.ref(title + "/css").set("");
+        database.ref(title + "/js").set("");
+        // database.ref("sketchify-title").set("");
+    };
+
+    // const handleOpen = () => {
+    //     setOpen(true);
+    // };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const setsHtml = (value) => {
+        database.ref(title + "/html").set(value);
+    };
+
+    const setsCss = (value) => {
+        database.ref(title + "/css").set(value);
+    };
+
+    const setsJs = (value) => {
+        database.ref(title + "/js").set(value);
     };
 
     useEffect(() => {
         if (title === "") {
-            document.title = "syehacom - Untitled";
+            document.title = "SyehaCode - Untitled";
         } else {
-            document.title = "syehacom - " + title;
+            document.title = "SyehaCode - " + title;
         }
 
         if (!(html === "" && css === "" && js === "")) {
@@ -157,27 +169,51 @@ function App() {
             return (ev.returnValue = "Changes you made will not be saved.");
         });
     });
+    
+    const useStyles = makeStyles({
+        root: {
+            background: "#3f51b5",
+            width: "100px",
+            fontWeight: "bold",
+            "&:hover": {
+                background: "#3f51b5",
+            },
+        },
+        buttonColor: {
+            "&.Mui-selected": {
+                backgroundColor: "#757ce8",
+                color: "#ffffff",
+            },
+            "&.Mui-selected:hover": {
+                background: "#757ce8",
+            },
+        },
+    });
+    const classes = useStyles();
 
     return (
         <div className="wrap-box">
             <nav className="nav-bar box1">
-                <div className="logo">はじめてみようプログラミング</div>
-                <input
-                    className="title"
-                    id="title-input"
-                    placeholder="Untitled"
-                    required="required"
-                    value={title}
-                    onChange={() =>
-                        setTitle(document.getElementById("title-input").value)
-                    }
-                    autoComplete="off"
+                <div className="logo">{value}</div>
+                <FormDialog
+                    isOpen={open}
+                    doClose={() => handleClose()}
+                    setValue={setValue}
+                    value={value}
                 />
                 <div className="btn-container">
-                    <div className="clearCode" onClick={clearEditor}>
-                        <FontAwesomeIcon icon={faEraser} />
-                        <div>クリア</div>
-                    </div>
+                    <ToggleButton
+                        classes={{
+                            root: classes.root, 
+                            selected: classes.buttonColor,
+                        }}
+                        value="check"
+                        selected={selected}
+                        onChange={() => {
+                            setSelected(!selected);
+                        }}>
+                        接続　{count}
+                    </ToggleButton>
                     <a
                         href=" "
                         id="download-btn-html"
@@ -202,7 +238,11 @@ function App() {
                         <FontAwesomeIcon icon={faDownload} />
                         <div>JS</div>
                     </a>
-                 </div>
+                    <div className="clear Code" onClick={clearEditor}>
+                        <FontAwesomeIcon icon={faEraser} />
+                        <div>クリア</div>
+                    </div>
+                </div>
             </nav>
             <Split sizes={[50, 50]} direction="vertical" className="box2">
                 <Split className="pane top-pane box21" sizes={[33, 34, 33]}>
@@ -210,19 +250,19 @@ function App() {
                         language="text/html"
                         displayName="HTML"
                         value={html}
-                        onChange={setHtml}
+                        onChange={setsHtml}
                     />
                     <Editor
                         language="css"
                         displayName="CSS"
                         value={css}
-                        onChange={setCss}
+                        onChange={setsCss}
                     />
                     <Editor
                         language="javascript"
                         displayName="JS"
                         value={js}
-                        onChange={setJs}
+                        onChange={setsJs}
                     />
                 </Split>
                 <div className="pane box22">
@@ -247,15 +287,16 @@ function App() {
                     />
                 </div>
             </Split>
-            <a
-                href="https://github.com/syehacom"
+            <div
+                // href="https://github.com/syehacom"
                 target="_blank"
                 rel="noopener noreferrer"
                 id="github-link"
                 className="text-center">
-                <FontAwesomeIcon icon={faGithub} />
-                <span>&nbsp;syehacom</span>
-            </a>
+                {/* <FontAwesomeIcon icon={faGithub} />
+                <span>&nbsp;syehacom</span> */}
+                <Skyway value={value} selected={selected} count={count}/>
+            </div>
         </div>
     );
 }
