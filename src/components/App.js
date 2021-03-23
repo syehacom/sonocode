@@ -140,7 +140,6 @@ function App() {
         database.ref(title + "/html").set("");
         database.ref(title + "/css").set("");
         database.ref(title + "/js").set("");
-        // database.ref("sketchify-title").set("");
     };
 
     const infoOpen = () => {
@@ -310,7 +309,7 @@ function App() {
                     <div className="click info" onClick={infoOpen}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         <div>お問合せ</div>
-                        <InfoDialog title={title} inOpen={info} inClose={() => infoClose()} />
+                        <InfoDialog inOpen={info} inClose={() => infoClose()} />
                     </div>
                 </div>
             </nav>
