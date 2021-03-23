@@ -48,7 +48,7 @@ const introDoc = `<html>
         30日で消去</span>されますので保存してください
         </h2><br><br>
         <footer>
-        <p style="font-size: 20px">©2021 Syehacom</p>
+        <p style="font-size: 20px"><span style="font-family: 'Rubik'; color:#b8b8b8">SyehaCode</span>　©2021 Syehacom</p>
         </footer>
       </body>
       <style>
