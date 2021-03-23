@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 
-const Codialog = ({ msg, isOpen, doYes, doNo }) => {
+const Codialog = ({ enter, msg, isOpen, doYes, doNo }) => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -19,14 +19,14 @@ const Codialog = ({ msg, isOpen, doYes, doNo }) => {
                 onClose={() => doNo()}
                 aria-labelledby="common-dialog-title"
                 aria-describedby="common-dialog-description">
-                <DialogContent>{msg} にしますか</DialogContent>
+                <DialogContent>{msg}</DialogContent>
                 <DialogActions>
                     <Button onClick={() => doNo()} color="primary">
-                        いいえ
+                        戻る
                     </Button>
-                    <Button onClick={() => doYes()} color="primary">
-                        はい
-                    </Button>
+                    {/* <Button onClick={() => doYes()} color="primary">
+                        Yes
+                    </Button> */}
                 </DialogActions>
             </Dialog>
         </div>

@@ -1,5 +1,5 @@
 {
-    "name": "syehacom",
+    "name": "syehacode",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -13,7 +13,9 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
+        "axios": "^0.21.1",
         "codemirror": "^5.57.0",
+        "dotenv": "^8.2.0",
         "firebase": "^8.3.0",
         "firestore": "^1.1.6",
         "formik-material-ui": "^3.0.1",
@@ -22,6 +24,7 @@
         "prettier": "2.1.2",
         "react": "^16.13.1",
         "react-codemirror2": "^7.2.1",
+        "react-copy-to-clipboard": "^5.0.3",
         "react-dom": "^16.13.1",
         "react-fireclient": "^0.4.4",
         "react-hook-form": "^6.15.4",
@@ -32,6 +35,7 @@
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
+        "react-share": "^4.4.0",
         "react-split": "^2.0.9",
         "skyway-js": "^4.4.0"
     },

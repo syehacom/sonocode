@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import Codialog from "./Codialog";
+import Redialog from "./Redialog";
 import firebase from "../utils/Firebase";
 import { useForm } from "react-hook-form";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -18,14 +19,31 @@ const database = firebase.database();
 const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     const [open, setOpen] = useState(false);
     const [commDlg, setCommDlg] = useState(false);
-    const [title, setTitle] = useState(1);
+    const [enter, setEnter] = useState(false);
+    const [title, setTitle] = useState("");
+    const [valid, setValid] = useState("");
+    const [alignment, setAlignment] = useState("left");
+    const [dialog, setDialog] = useState("");
+    // const [random, setRandom] = useState("");
 
     useEffect(() => {
         setOpen(isOpen);
     }, [isOpen]);
 
+    const makeRandom = () => {
+        const S =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const N = 10;
+        const rand = Array.from(Array(N))
+            .map(() => S[Math.floor(Math.random() * S.length)])
+            .join("");
+        setValid(rand);
+        handleDo();
+    };
+
     const handleDo = () => {
         setCommDlg(true);
+        setEnter(false);
     };
 
     const handleCancel = () => {
@@ -34,34 +52,62 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     };
 
     const execute = () => {
-        setCommDlg(false);
-        handleCancel();
-        firebase
-            .database()
-            .ref(title)
-            .once("value", (snapshot) => {
-                if (snapshot.exists()) {
-                    console.log("exists!");
-                } else {
-                    database
-                        .ref(title)
-                        .set({ title: title, html: "", css: "", js: "" });
-                }
-            });
+        if (alignment === "left") {
+            firebase
+                .database()
+                .ref(valid)
+                .once("value", (snapshot) => {
+                    if (snapshot.exists()) {
+                        console.log("exists!");
+                        setEnter(true);
+                        setDialog("すでに使われています");
+                    } else {
+                        setTitle(valid);
+                        setEnter(true);
+                        database.ref(valid).set({
+                            title: valid,
+                            html: "",
+                            css: "",
+                            js: "",
+                            timestamp: firebase.database.ServerValue.TIMESTAMP,
+                        });
+                        setCommDlg(false);
+                        handleCancel();
+                    }
+                });
+        } else {
+            firebase
+                .database()
+                .ref(valid)
+                .once("value", (snapshot) => {
+                    if (snapshot.exists()) {
+                        setTitle(valid);
+                        setCommDlg(false);
+                        handleCancel();
+                    } else {
+                        console.log("not exists!");
+                        setEnter(true);
+                        setDialog("ページがありません");
+                    }
+                });
+        }
     };
 
     const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = (data) => {
         console.log(data); // 送信するデータ
+        console.log(alignment);
     };
 
     const comment = title;
 
-    const [alignment, setAlignment] = useState("left");
     const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+        if (newAlignment !== null) {
+            setAlignment(newAlignment);
+        }
     };
+
     const useStyles = makeStyles({
         buttonColor: {
             "&.Mui-selected": {
@@ -75,7 +121,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     return (
         <div>
             <p>{setValue(comment)}</p>
-            <form onClick={handleSubmit(onSubmit)}>
+            <form onChange={handleSubmit(onSubmit)}>
                 <Dialog
                     open={open}
                     // onClose={handleCancel}
@@ -115,7 +161,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                             label="ページ名"
                             type="text"
                             fullWidth
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e) => setValid(e.target.value)}
                             inputRef={register({
                                 required: true,
                                 minLength: 10,
@@ -131,7 +177,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                         {/* <Button onClick={handleCancel} color="primary">
                         キャンセル
                     </Button> */}
-                        {title && (
+                        {valid && (
                             <Button
                                 disabled={Boolean(errors.body)}
                                 type="submit"
@@ -140,17 +186,37 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                                 OK
                             </Button>
                         )}
+                        {!valid && (
+                            <Button
+                                disabled={Boolean(alignment === "right")}
+                                type="submit"
+                                onClick={makeRandom}
+                                color="primary">
+                                ランダム
+                            </Button>
+                        )}
                     </DialogActions>
                 </Dialog>
             </form>
-            <Codialog
-                msg={title}
-                isOpen={commDlg}
-                doYes={execute}
-                doNo={() => {
-                    setCommDlg(false);
-                }}
-            />
+            {enter ? (
+                <Redialog
+                    msg={dialog}
+                    isOpen={commDlg}
+                    doNo={() => {
+                        setCommDlg(false);
+                    }}
+                />
+            ) : (
+                <Codialog
+                    msg={valid}
+                    isOpen={commDlg}
+                    doYes={execute}
+                    doNo={() => {
+                        setValid("");
+                        setCommDlg(false);
+                    }}
+                />
+            )}
         </div>
     );
 };

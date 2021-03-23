@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import Editor from "./Editor";
 import Split from "react-split";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faEraser } from "@fortawesome/free-solid-svg-icons";
+import {
+    faDownload,
+    faEraser,
+    faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Tooltip from "@material-ui/core/Tooltip";
+import CopyToClipBoard from "react-copy-to-clipboard";
 import firebase from "../utils/Firebase";
 import FormDialog from "./FormDialog";
+import InfoDialog from "./InfoDialog";
 import Skyway from "./Skyway";
 
 // import useLocalStorage from "../hooks/useLocalStorage";
@@ -17,11 +26,25 @@ const introDoc = `<html>
       <body>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
         <div style="font-family: 'Lato'" class="intro-text">
-        <h1 style="font-size: 25px">
-        はじめてみよう <span style="font-family: 'Rubik'; color:#b8b8b8">プログラミング</span>
+        <h1 style="font-size: 25px"><br>
+        はじめてみよう <span style="font-family: 'Rubik'; color:#b8b8b8">ウェブデザイン</span>
         </h1>
-        <p style="font-size: 20px"></p>
-        </div></div>
+        <br><br>
+         <h2 style="font-size: 20px">
+        新しくページを作成する場合は<span style="font-family: 'Rubik'; color:#f44336">
+        10文字以上</span>でページ名を入力<br>
+        作成したページを利用するにはページ名を入力してください<br><br>
+        <span style="font-family: 'Rubik'; color:#b8b8b8">利用方法</span>
+        </h2>
+         <h2 style="font-size: 20px">
+        同じページではリアルタイムな共有が可能となります<br>
+        接続ボタンを押すことで音声チャットが開始されます<br>
+        ページは<span style="font-family: 'Rubik'; color:#f44336">
+        30日で消去</span>されますので保存してください
+        </h2><br><br>
+        <footer>
+        <p style="font-size: 20px">©2021 Syehacom</p>
+        </footer>
       </body>
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Rubik&display=swap');
@@ -43,16 +66,18 @@ function App() {
     const [html, setHtml] = useState("");
     const [css, setCss] = useState("");
     const [js, setJs] = useState("");
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
     const [srcDoc, setSrcDoc] = useState("");
     const [value, setValue] = useState("");
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState(false)
+    const [selected, setSelected] = useState(false);
+    const [info, setInfo] = useState(false);
+    const [openTip, setOpenTip] = useState(false);
 
     const title = value;
 
     useEffect(() => {
-        // setOpen(true);
+        setOpen(true);
 
         database.ref(title + "/html").on("value", (data) => {
             setHtml(data.val());
@@ -66,9 +91,9 @@ function App() {
             setJs(data.val());
         });
 
-        database.ref(title + "/count").on("value", (data) => {
-            setCount(data.val());
-        });
+        // database.ref(title + "/count").on("value", (data) => {
+        //     setCount(data.val());
+        // });
     }, [title]);
 
     const downloadHtml = () => {
@@ -116,6 +141,26 @@ function App() {
         database.ref(title + "/css").set("");
         database.ref(title + "/js").set("");
         // database.ref("sketchify-title").set("");
+    };
+
+    const infoOpen = () => {
+        if (info === false) {
+            setInfo(true);
+        } else {
+            setInfo(false);
+        }
+    };
+
+    const infoClose = () => {
+        setInfo(false);
+    }
+
+    const handleCloseTip = () => {
+        setOpenTip(false);
+    };
+
+    const handleClickButton = () => {
+        setOpenTip(true);
     };
 
     // const handleOpen = () => {
@@ -169,7 +214,7 @@ function App() {
             return (ev.returnValue = "Changes you made will not be saved.");
         });
     });
-    
+
     const useStyles = makeStyles({
         root: {
             background: "#3f51b5",
@@ -194,7 +239,25 @@ function App() {
     return (
         <div className="wrap-box">
             <nav className="nav-bar box1">
-                <div className="logo">{value}</div>
+                <div className="logo">
+                    {value}
+                    <Tooltip
+                        arrow
+                        placement="right"
+                        open={openTip}
+                        onClose={handleCloseTip}
+                        disableHoverListener
+                        title="コピーしました">
+                        <CopyToClipBoard text={value}>
+                            <IconButton
+                                color="primary"
+                                disabled={value === ""}
+                                onClick={handleClickButton}>
+                                <AssignmentIcon />
+                            </IconButton>
+                        </CopyToClipBoard>
+                    </Tooltip>
+                </div>
                 <FormDialog
                     isOpen={open}
                     doClose={() => handleClose()}
@@ -204,7 +267,7 @@ function App() {
                 <div className="btn-container">
                     <ToggleButton
                         classes={{
-                            root: classes.root, 
+                            root: classes.root,
                             selected: classes.buttonColor,
                         }}
                         value="check"
@@ -212,8 +275,10 @@ function App() {
                         onChange={() => {
                             setSelected(!selected);
                         }}>
-                        接続　{count}
+                        接続
+                        {/* {count} */}
                     </ToggleButton>
+                    <div></div>
                     <a
                         href=" "
                         id="download-btn-html"
@@ -238,9 +303,14 @@ function App() {
                         <FontAwesomeIcon icon={faDownload} />
                         <div>JS</div>
                     </a>
-                    <div className="clear Code" onClick={clearEditor}>
+                    <div className="clear editor" onClick={clearEditor}>
                         <FontAwesomeIcon icon={faEraser} />
                         <div>クリア</div>
+                    </div>
+                    <div className="click info" onClick={infoOpen}>
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                        <div>お問合せ</div>
+                        <InfoDialog title={title} inOpen={info} inClose={() => infoClose()} />
                     </div>
                 </div>
             </nav>
@@ -295,7 +365,11 @@ function App() {
                 className="text-center">
                 {/* <FontAwesomeIcon icon={faGithub} />
                 <span>&nbsp;syehacom</span> */}
-                <Skyway value={value} selected={selected} count={count}/>
+                <Skyway
+                    // count={count}
+                    value={value}
+                    selected={selected}
+                />
             </div>
         </div>
     );

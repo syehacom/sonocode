@@ -5,26 +5,24 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import firebase from "../utils/Firebase";
-const peer = new Peer({ key: "3f631136-9dc4-4774-907e-767263560c56" });
-const database = firebase.database();
+
+// import firebase from "../utils/Firebase";
+// const database = firebase.database();
+const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
-    const [myId, setMyId] = useState("");
+    
     const [state, setState] = useState(false);
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
-    const [items, setItems] = useState([]);
+    const [remoteVideoData, setRemoteVideoData] = useState([]);
     const localVideo = useRef(null);
     const remoteVideo = useRef(null);
-    // const localStream = useRef(null);
 
     useEffect(() => {
         setCallId(value);
         setMount(true);
-        setMyId(peer.id);
     }, [value]);
-    // database.ref(value + "/count").set(count + 1);
 
     useEffect(() => {
         if (selected === true) {
@@ -41,7 +39,7 @@ const Skyway = ({ value, selected, count }) => {
 
     peer.on("open", () => {
         navigator.mediaDevices
-            .getUserMedia({ video: true, audio: true })
+            .getUserMedia({ video: false, audio: true })
             .then((localStream) => {
                 localVideo.current.srcObject = localStream;
             });
@@ -60,39 +58,22 @@ const Skyway = ({ value, selected, count }) => {
             stream: localVideo.current.srcObject,
         });
         mediaConnection.on("stream", async (stream) => {
-            remoteVideo.current.srcObject = stream;
-            await remoteVideo.current.play().catch(console.error);
+            setRemoteVideoData((oldRemoteVideoData) => [
+                ...oldRemoteVideoData,
+                stream,
+            ]);
         });
-                addItem();
-
+        // database.ref(value + "/count").set(count + 1);
     };
 
-    const addItem = () => {
-        setItems([
-            ...items,
-            <video
-                key={items.id}
-                width="200px"
-                autoPlay
-                // muted
-                playsInline
-                ref={remoteVideo}>
-                {items.value}
-            </video>,
-        ]);
-    };
-
-    const leaveCall = (peerId) => {
+    const leaveCall = () => {
         const mediaConnection = peer.joinRoom(callId, {
             mode: "sfu",
             stream: localVideo.current.srcObject,
         });
-        // removeVideo(myId);
         mediaConnection.close();
-        database.ref(value + "/count").set(count - 1);
+        // database.ref(value + "/count").set(count - 1);
     };
-
-
 
     const handleChange = (event) => {
         setState(event.target.checked);
@@ -102,15 +83,32 @@ const Skyway = ({ value, selected, count }) => {
             .forEach((track) => (track.enabled = state));
     };
 
+    const RemoteVideo = (props) => {
+        const videoRef = useRef();
+        useEffect(() => {
+            videoRef.current.srcObject = props.videoData;
+        });
+        return (
+            <div className="remoteVideo">
+                <audio
+                    // width="200px"
+                    autoPlay
+                    // playsInline
+                    // muted
+                    ref={videoRef}></audio>
+            </div>
+        );
+    };
+
     return (
         <div>
             <div>
-                <video
-                    width="200px"
+                <audio
+                    // width="200px"
                     autoPlay
                     muted
-                    playsInline
-                    ref={localVideo}></video>
+                    // playsInline
+                    ref={localVideo}></audio>
             </div>
             <div>
                 <FormControlLabel
@@ -127,25 +125,9 @@ const Skyway = ({ value, selected, count }) => {
                 />
                 <FontAwesomeIcon icon={faVolumeMute} />
             </div>
-            {items.map((items) => (
-                <video
-                    key={items.id}
-                    width="200px"
-                    autoPlay
-                    // muted
-                    playsInline
-                    ref={remoteVideo}>
-                    {items.value}
-                </video>
-            ))}
-            {/* <div>
-                <video
-                    width="200px"
-                    autoPlay
-                    // muted
-                    playsInline
-                    ref={remoteVideo}></video>
-            </div> */}
+            {remoteVideoData.map((videoData, index) => {
+                return <RemoteVideo key={index} videoData={videoData} />;
+            })}
         </div>
     );
 };
