@@ -24,6 +24,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     const [valid, setValid] = useState("");
     const [alignment, setAlignment] = useState("left");
     const [dialog, setDialog] = useState("");
+    const [random, setRandom] = useState(false);
     // const [random, setRandom] = useState("");
 
     useEffect(() => {
@@ -38,6 +39,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
             .map(() => S[Math.floor(Math.random() * S.length)])
             .join("");
         setValid(rand);
+        setRandom(true);
         handleDo();
     };
 
@@ -213,6 +215,10 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                     doYes={execute}
                     doNo={() => {
                         setCommDlg(false);
+                        if (random === true) {
+                            setValid("");
+                            setRandom(false);
+                        }
                     }}
                 />
             )}
