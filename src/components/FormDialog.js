@@ -212,7 +212,6 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                     isOpen={commDlg}
                     doYes={execute}
                     doNo={() => {
-                        setValid("");
                         setCommDlg(false);
                     }}
                 />
