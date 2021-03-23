@@ -335,7 +335,7 @@ function App() {
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description">
                         <DialogTitle id="scroll-dialog-title">
-                            サービス利用規約
+                            SyehaCode サービス利用規約
                         </DialogTitle>
                         <DialogActions>
                             <Button onClick={infoClose} color="primary">
