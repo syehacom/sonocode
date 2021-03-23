@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
-    
     const [state, setState] = useState(false);
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
@@ -27,11 +26,11 @@ const Skyway = ({ value, selected, count }) => {
     useEffect(() => {
         if (selected === true) {
             makeCall();
-            console.log("makeCall");
+            // console.log("makeCall");
         } else {
             if (mount === true) {
                 leaveCall();
-                console.log("leaveCall");
+                // console.log("leaveCall");
             }
         }
         // eslint-disable-next-line
@@ -77,7 +76,7 @@ const Skyway = ({ value, selected, count }) => {
 
     const handleChange = (event) => {
         setState(event.target.checked);
-        console.log(state);
+        // console.log(state);
         localVideo.current.srcObject
             .getAudioTracks()
             .forEach((track) => (track.enabled = state));

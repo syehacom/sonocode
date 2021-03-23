@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const PREFIX = "syehacom-";
 
-export default function useLocalStorage(key, initialValue) {
+export default function LocalStorage(key, initialValue) {
     const prefixedKey = PREFIX + key;
 
     const [value, setValue] = useState(() => {
