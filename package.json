@@ -27,6 +27,7 @@
         "react-copy-to-clipboard": "^5.0.3",
         "react-dom": "^16.13.1",
         "react-fireclient": "^0.4.4",
+        "react-ga": "^3.3.0",
         "react-hook-form": "^6.15.4",
         "react-jqueryui": "^0.1.0",
         "react-loading-overlay": "^1.0.1",

@@ -486,7 +486,7 @@ function App() {
                         srcDoc={srcDoc}
                         title="output"
                         id="iframe"
-                        sandbox="allow-scripts"
+                        sandbox="allow-scripts allow-popups"
                         frameBorder="0"
                         width="100%"
                         height="100%"
@@ -496,7 +496,7 @@ function App() {
                         srcDoc={introDoc}
                         title="intro"
                         id="intro"
-                        sandbox="allow-scripts"
+                        sandbox="allow-scripts allow-popups"
                         frameBorder="0"
                         width="100%"
                         height="100%"
