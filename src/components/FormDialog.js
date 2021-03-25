@@ -284,7 +284,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
 };
 
 const Transition = forwardRef(function Transition(props, ref) {
-    return <Fade sref={ref} {...props} />;
+    return <Fade ref={ref} {...props} />;
 });
 
 export default FormDialog;
