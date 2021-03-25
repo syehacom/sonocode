@@ -62,7 +62,7 @@ const introDoc = `<html>
       </style>
     </html>`;
 
-function App() {
+function Home() {
     // const [html, setHtml] = LocalStorage("html", "");
     // const [css, setCss] = LocalStorage("css", "");
     // const [js, setJs] = LocalStorage("js", "");
@@ -253,10 +253,10 @@ function App() {
                     {value}
                     <Tooltip
                         arrow
-                        placement="right"
                         open={openTip}
                         onClose={handleCloseTip}
                         disableHoverListener
+                        placement="top"
                         title="コピーしました">
                         <CopyToClipBoard text={value}>
                             <IconButton
@@ -521,4 +521,4 @@ function App() {
     );
 }
 
-export default App;
+export default Home;
