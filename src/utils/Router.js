@@ -4,15 +4,15 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Home from "../components/Home";
+import App from "../components/App";
 
-const Opencode = () => {
+const App = () => {
         return (
             <Router>
                 <div>
                     <Switch>
                         <Route path="/">
-                            <Home />
+                            <App />
                         </Route>
                     </Switch>
                 </div>
@@ -20,4 +20,4 @@ const Opencode = () => {
         );
     }
 
-export default Opencode;
+export default App;

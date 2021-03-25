@@ -62,7 +62,7 @@ const introDoc = `<html>
       </style>
     </html>`;
 
-function Home() {
+function App() {
     // const [html, setHtml] = LocalStorage("html", "");
     // const [css, setCss] = LocalStorage("css", "");
     // const [js, setJs] = LocalStorage("js", "");
@@ -521,4 +521,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default App;

@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Opencode from "./utils/Opencode";
+import App from "./components/App";
 
 ReactDOM.render(
-    <Opencode/>,
+    <App/>,
     document.getElementById("root")
 );
