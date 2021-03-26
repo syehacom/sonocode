@@ -38,12 +38,13 @@ const introDoc = `<html>
         <br><br>
         <h2 style="font-size: 20px">
         <span style="font-family: 'Rubik'; color:#b8b8b8">利用方法</span>
-        </h2>
+        </h2><br>
         <h2 style="font-size: 20px">
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
-        ページは<span style="font-family: 'Rubik'; color:#ba000d">
-        30日で消去</span>されますのでダウンロード保存してください
-        </h2><br><br>
+        音声ボタンからチャットに参加、マイクボタンでミュート操作ができます
+        <br>ページは<span style="font-family: 'Rubik'; color:#ba000d">
+        30日間で消去</span>されますのでダウンロードで保存してください
+        </h2><br><br><br>
         <footer>
         <p style="font-size: 20px"><span style="font-family: 'Rubik'; color:#b8b8b8">SyehaCode</span>　©2021 Syehacom</p>
         </footer>
