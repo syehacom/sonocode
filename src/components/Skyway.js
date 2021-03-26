@@ -5,9 +5,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// import firebase from "../utils/Firebase";
-// const database = firebase.database();
+import firebase from "../utils/Firebase";
+const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
@@ -15,6 +14,7 @@ const Skyway = ({ value, selected, count }) => {
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
     const [remoteVideoData, setRemoteVideoData] = useState([]);
+    const [connect, setConnect] = useState(false);
     const localVideo = useRef(null);
     const remoteVideo = useRef(null);
 
@@ -62,7 +62,8 @@ const Skyway = ({ value, selected, count }) => {
                 stream,
             ]);
         });
-        // database.ref(value + "/count").set(count + 1);
+        database.ref(value + "/count").set(count + 1);
+        setConnect(true);
     };
 
     const leaveCall = () => {
@@ -71,8 +72,16 @@ const Skyway = ({ value, selected, count }) => {
             stream: localVideo.current.srcObject,
         });
         mediaConnection.close();
-        // database.ref(value + "/count").set(count - 1);
+        database.ref(value + "/count").set(count - 1);
+        setConnect(false);
     };
+
+    if (connect === true) {
+        database
+            .ref(value + "/count")
+            .onDisconnect()
+            .set(count - 1);
+    }
 
     const handleChange = (event) => {
         setState(event.target.checked);
