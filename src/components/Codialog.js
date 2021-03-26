@@ -19,7 +19,7 @@ const Codialog = ({ msg, isOpen, doYes, doNo }) => {
                 onClose={() => doNo()}
                 aria-labelledby="common-dialog-title"
                 aria-describedby="common-dialog-description">
-                <DialogContent>{msg} で良いですか</DialogContent>
+                <DialogContent>{msg} にしますか</DialogContent>
                 <DialogActions>
                     <Button onClick={() => doNo()} color="primary">
                         いいえ
