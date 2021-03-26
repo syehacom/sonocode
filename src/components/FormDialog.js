@@ -16,7 +16,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 const database = firebase.database();
 
-const FormDialog = ({ isOpen, doClose, setValue, value }) => {
+const FormDialog = ({ isOpen, doClose, setValue }) => {
     const [open, setOpen] = useState(false);
     const [commDlg, setCommDlg] = useState(false);
     const [enter, setEnter] = useState(false);
@@ -25,7 +25,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     const [alignment, setAlignment] = useState("left");
     const [dialog, setDialog] = useState("");
     const [random, setRandom] = useState(false);
-    // const [random, setRandom] = useState("");
+    const [choice, setChoice] = useState(" を作成しますか");
 
     useEffect(() => {
         setOpen(isOpen);
@@ -99,7 +99,6 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
 
     const onSubmit = (data) => {
         console.log(data); // 送信するデータ
-        console.log(alignment);
     };
 
     const comment = title;
@@ -107,6 +106,11 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
     const handleAlignment = (event, newAlignment) => {
         if (newAlignment !== null) {
             setAlignment(newAlignment);
+            if (newAlignment === "left") {
+                setChoice(" を作成しますか")
+            } else {
+                setChoice(" を利用しますか"); 
+            };
         }
     };
 
@@ -267,7 +271,7 @@ const FormDialog = ({ isOpen, doClose, setValue, value }) => {
                 />
             ) : (
                 <Codialog
-                    msg={valid}
+                    msg={valid + choice}
                     isOpen={commDlg}
                     doYes={execute}
                     doNo={() => {

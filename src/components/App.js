@@ -36,17 +36,13 @@ const introDoc = `<html>
         はじめてみよう<span style="font-family: 'Rubik'; color:#b8b8b8">ウェブデザイン</span>
         </h1>
         <br><br>
-         <h2 style="font-size: 20px">
-        新しくページを作成する場合は<span style="font-family: 'Rubik'; color:#ba000d">
-        10文字以上</span>でページ名を登録<br>
-        作成したページを利用するにはページ名を入力してください<br><br>
+        <h2 style="font-size: 20px">
         <span style="font-family: 'Rubik'; color:#b8b8b8">利用方法</span>
         </h2>
-         <h2 style="font-size: 20px">
-        同ページのユーザーとリアルタイムにコードが共有され<br>
-        接続ボタンを押すことで音声チャットが開始されます<br>
+        <h2 style="font-size: 20px">
+        アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
         ページは<span style="font-family: 'Rubik'; color:#ba000d">
-        30日で消去</span>されますので保存してください
+        30日で消去</span>されますのでダウンロード保存してください
         </h2><br><br>
         <footer>
         <p style="font-size: 20px"><span style="font-family: 'Rubik'; color:#b8b8b8">SyehaCode</span>　©2021 Syehacom</p>
@@ -292,9 +288,8 @@ function App() {
                         onChange={() => {
                             setSelected(!selected);
                         }}>
-                        接続　
-                        <Badge badgeContent={count} color="secondary">
-                        </Badge>
+                        音声　
+                        <Badge badgeContent={count} color="secondary"></Badge>
                     </ToggleButton>
                     <div></div>
                     <a

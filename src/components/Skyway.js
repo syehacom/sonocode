@@ -3,14 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import Peer from "skyway-js";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import { faVolumeMute } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophoneSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "../utils/Firebase";
 const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
-    const [state, setState] = useState({ checkedB: true });
+    const [state, setState] = useState(true);
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
     const [remoteVideoData, setRemoteVideoData] = useState([]);
@@ -30,7 +30,9 @@ const Skyway = ({ value, selected, count }) => {
         } else {
             if (mount === true) {
                 leaveCall();
-                database.ref(value + "/count").set(count - 1);
+                if (count > 0) {
+                    database.ref(value + "/count").set(count - 1);
+                }
             }
         }
         // eslint-disable-next-line
@@ -74,7 +76,7 @@ const Skyway = ({ value, selected, count }) => {
         setConnect(false);
     };
 
-    if (connect === true) {
+    if (connect === true && count > 0 ) {
         database
             .ref(value + "/count")
             .onDisconnect()
@@ -121,15 +123,14 @@ const Skyway = ({ value, selected, count }) => {
                     control={
                         <Switch
                             size="small"
-                            checked={state.checkedB}
+                            checked={state}
                             onChange={handleChange}
-                            name="checkedB"
                             color="secondary"
                         />
                     }
                     // label="On"
                 />
-                <FontAwesomeIcon icon={faVolumeMute} />
+                <FontAwesomeIcon icon={faMicrophoneSlash} />
             </div>
             {remoteVideoData.map((videoData, index) => {
                 return <RemoteVideo key={index} videoData={videoData} />;

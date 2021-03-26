@@ -15,11 +15,12 @@ const Codialog = ({ msg, isOpen, doYes, doNo }) => {
         <div>
             <Dialog
                 open={open}
+                transitionDuration="0"
                 keepMounted
                 onClose={() => doNo()}
                 aria-labelledby="common-dialog-title"
                 aria-describedby="common-dialog-description">
-                <DialogContent>{msg} にしますか</DialogContent>
+                <DialogContent>{msg}</DialogContent>
                 <DialogActions>
                     <Button onClick={() => doNo()} color="primary">
                         いいえ
