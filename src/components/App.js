@@ -6,6 +6,7 @@ import {
     faDownload,
     faEraser,
     faInfoCircle,
+    faPager,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
@@ -17,6 +18,7 @@ import CopyToClipBoard from "react-copy-to-clipboard";
 import firebase from "../utils/Firebase";
 import FormDialog from "./FormDialog";
 import EmDialog from "./EmDialog";
+import PageDialog from "./PageDialog";
 import Skyway from "./Skyway";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -32,7 +34,7 @@ const introDoc = `<html>
       <body>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
         <div style="font-family: 'Lato'" class="intro-text">
-        <h1 style="font-size: 25px"><br>
+        <h1 style="font-size: 30px"><br>
         はじめてみよう<span style="font-family: 'Rubik'; color:#b8b8b8">ウェブデザイン</span>
         </h1>
         <br><br>
@@ -75,6 +77,7 @@ function App() {
     const [info, setInfo] = useState(false);
     const [openTip, setOpenTip] = useState(false);
     const [emerge, setEmerge] = useState(false);
+    const [page, setPage] = useState(false);
     const [count, setCount] = useState(0);
 
     const title = value;
@@ -154,6 +157,14 @@ function App() {
         }
     };
 
+    const pageOpen = () => {
+        if (page === false) {
+            setPage(true);
+        } else {
+            setPage(false);
+        }
+    };
+
     const infoClose = () => {
         setInfo(false);
     };
@@ -226,7 +237,10 @@ function App() {
         root: {
             background: "#3f51b5",
             width: "100px",
-            fontWeight: "bold",
+            color: "#7c7c7c",
+            fontSize: "16px",
+            fontFamily: "Rubik",
+            // fontWeight: "bold",
             "&:hover": {
                 background: "#3f51b5",
             },
@@ -293,6 +307,12 @@ function App() {
                         <Badge badgeContent={count} color="secondary"></Badge>
                     </ToggleButton>
                     <div></div>
+                    <div className="page open" onClick={pageOpen}>
+                        <FontAwesomeIcon icon={faPager} />
+                        <PageDialog
+                            title={title} src={srcDoc} page={page}  />
+                        <div>ページ</div>
+                    </div>
                     <a
                         href=" "
                         id="download-btn-html"

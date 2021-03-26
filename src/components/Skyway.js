@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Peer from "skyway-js";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import { faMicrophoneSlash } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophone, faMicrophoneSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "../utils/Firebase";
 const database = firebase.database();
@@ -130,7 +130,9 @@ const Skyway = ({ value, selected, count }) => {
                     }
                     // label="On"
                 />
-                <FontAwesomeIcon icon={faMicrophoneSlash} />
+                {state ? (<FontAwesomeIcon icon={faMicrophoneSlash} />) : (
+                    <FontAwesomeIcon icon={faMicrophone} />
+                )}
             </div>
             {remoteVideoData.map((videoData, index) => {
                 return <RemoteVideo key={index} videoData={videoData} />;
