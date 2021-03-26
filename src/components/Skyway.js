@@ -10,7 +10,7 @@ const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
-    const [state, setState] = useState(false);
+    const [state, setState] = useState({ checkedB: true });
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
     const [remoteVideoData, setRemoteVideoData] = useState([]);
