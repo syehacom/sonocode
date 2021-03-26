@@ -26,11 +26,11 @@ const Skyway = ({ value, selected, count }) => {
     useEffect(() => {
         if (selected === true) {
             makeCall();
-            // console.log("makeCall");
+            database.ref(value + "/count").set(count + 1);
         } else {
             if (mount === true) {
                 leaveCall();
-                // console.log("leaveCall");
+                database.ref(value + "/count").set(count - 1);
             }
         }
         // eslint-disable-next-line
@@ -63,7 +63,6 @@ const Skyway = ({ value, selected, count }) => {
             ]);
         });
         setConnect(true);
-        database.ref(value + "/count").set(count + 1);
     };
 
     const leaveCall = () => {
@@ -73,7 +72,6 @@ const Skyway = ({ value, selected, count }) => {
         });
         mediaConnection.close();
         setConnect(false);
-        database.ref(value + "/count").set(count - 1);
     };
 
     if (connect === true) {
