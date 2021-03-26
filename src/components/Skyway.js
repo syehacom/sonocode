@@ -62,8 +62,8 @@ const Skyway = ({ value, selected, count }) => {
                 stream,
             ]);
         });
-        database.ref(value + "/count").set(count + 1);
         setConnect(true);
+        database.ref(value + "/count").set(count + 1);
     };
 
     const leaveCall = () => {
@@ -72,8 +72,8 @@ const Skyway = ({ value, selected, count }) => {
             stream: localVideo.current.srcObject,
         });
         mediaConnection.close();
-        database.ref(value + "/count").set(count - 1);
         setConnect(false);
+        database.ref(value + "/count").set(count - 1);
     };
 
     if (connect === true) {
