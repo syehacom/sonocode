@@ -107,18 +107,22 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
         if (newAlignment !== null) {
             setAlignment(newAlignment);
             if (newAlignment === "left") {
-                setChoice(" を作成しますか")
+                setChoice(" を作成しますか");
             } else {
-                setChoice(" を利用しますか"); 
-            };
+                setChoice(" を利用しますか");
+            }
         }
     };
 
     const useStyles = makeStyles({
+        root: {
+            fontSize: "18px",
+        },
         buttonColor: {
             "&.Mui-selected": {
                 backgroundColor: "#3f51b5",
                 color: "#ffffff",
+                fontSize: "18px",
             },
         },
     });
@@ -143,121 +147,148 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 height="400px"
                                 width="400px"></div>
                             <div className="carousel-caption">
-                                <div className="content">
-                                    ウェブページのデザインを試しましょう
-                                </div>
-                            </div>
-                            {/* <img src={hero} /> */}
-                            <div>
-                                <h1>
-                                    We build &amp; design <br /> web
-                                    applications.
-                                </h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Proin luctus congue
-                                    dignissim. Vestibulum et ex nisl. Vestibulum
-                                    eu luctus nisi. Fusce sit amet vehicula
-                                    nisl.
-                                </p>
+                                <div className="content">SONOCODE</div>
                             </div>
                         </header>
-                        <ToggleButtonGroup
-                            // orientation="vertical"
-                            value={alignment}
-                            exclusive
-                            onChange={handleAlignment}
-                            aria-label="text alignment">
-                            <ToggleButton
-                                classes={{ selected: classes.buttonColor }}
-                                value="left"
-                                aria-label="left aligned">
-                                作成する
-                            </ToggleButton>
-                            <ToggleButton
-                                classes={{ selected: classes.buttonColor }}
-                                value="right"
-                                aria-label="right aligned">
-                                利用する
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                        {/* <DialogTitle id="form-dialog-title">
+                        <main>
+                            <div class="flex-container">
+                                <div className="flex-item">
+                                    <h1>
+                                        そのコードを簡単&amp;便利に <br />{" "}
+                                        共有しましょう
+                                    </h1>
+                                    <p>
+                                        まずは、ページを作成してみよう
+                                        <span role="img" aria-label="emoji">
+                                            😃
+                                        </span>
+                                        ページ名を共有し同じページにアクセスすることでリアルタイムに共同編集
+                                        <span role="img" aria-label="emoji">
+                                            💻
+                                        </span>
+                                        ができます。
+                                        音声チャットやページプレビューを使ってウェブデザインを教えたり、一緒に考えたりしましょう
+                                        <span role="img" aria-label="emoji">
+                                            ❕
+                                        </span>
+                                    </p>
+                                </div>
+                                <div className="three flex-item"></div>
+                            </div>
+                            <div className="toggle">
+                                <ToggleButtonGroup
+                                    // orientation="vertical"
+                                    value={alignment}
+                                    exclusive
+                                    onChange={handleAlignment}
+                                    aria-label="text alignment">
+                                    <ToggleButton
+                                        classes={{
+                                            selected: classes.buttonColor,
+                                            root: classes.root,
+                                        }}
+                                        value="left"
+                                        aria-label="left aligned">
+                                        作成する
+                                    </ToggleButton>
+                                    <ToggleButton
+                                        classes={{
+                                            selected: classes.buttonColor,
+                                            root: classes.root,
+                                        }}
+                                        value="right"
+                                        aria-label="right aligned">
+                                        利用する
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                                {/* <DialogTitle id="form-dialog-title">
                         ページを作成or利用する
                     </DialogTitle> */}
-                        <DialogContent>
-                            {/* <DialogContentText></DialogContentText> */}
-                            <TextField
-                                defaultValue=""
-                                autoFocus
-                                name="body"
-                                margin="dense"
-                                id="name"
-                                label="ページ名"
-                                type="text"
-                                fullWidth
-                                onChange={(e) => setValid(e.target.value)}
-                                inputRef={register({
-                                    required: true,
-                                    minLength: 10,
-                                    // pattern: /^([a-zA-Z0-9]{10,})$/,
-                                })}
-                                error={Boolean(errors.body)}
-                                helperText={
-                                    errors.body && "10文字以上にして下さい。"
-                                }
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            {/* <Button onClick={handleCancel} color="primary">
+                                <DialogContent>
+                                    {/* <DialogContentText></DialogContentText> */}
+                                    <TextField
+                                        inputProps={{ style: { fontSize: 18 } }} // font size of input text
+                                        InputLabelProps={{
+                                            style: { fontSize: 18 },
+                                        }} // font size of input label
+                                        defaultValue=""
+                                        autoFocus
+                                        name="body"
+                                        margin="normal"
+                                        id="name"
+                                        label="ページ名"
+                                        type="text"
+                                        className={classes.textField}
+                                        fullWidth
+                                        onChange={(e) =>
+                                            setValid(e.target.value)
+                                        }
+                                        inputRef={register({
+                                            required: true,
+                                            minLength: 10,
+                                            // pattern: /^([a-zA-Z0-9]{10,})$/,
+                                        })}
+                                        error={Boolean(errors.body)}
+                                        helperText={
+                                            errors.body &&
+                                            "10文字以上にして下さい。"
+                                        }
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                    {/* <Button onClick={handleCancel} color="primary">
                         キャンセル
                     </Button> */}
-                            {valid && (
-                                <Button
-                                    disabled={Boolean(errors.body)}
-                                    type="submit"
-                                    onClick={handleDo}
-                                    color="primary">
-                                    OK
-                                </Button>
-                            )}
-                            {!valid && (
-                                <Button
-                                    disabled={Boolean(alignment === "right")}
-                                    type="submit"
-                                    onClick={makeRandom}
-                                    color="primary">
-                                    ランダム
-                                </Button>
-                            )}
-                        </DialogActions>
-                        <section className="container">
+                                    {valid && (
+                                        <Button
+                                            disabled={Boolean(errors.body)}
+                                            type="submit"
+                                            onClick={handleDo}
+                                            color="primary">
+                                            OK
+                                        </Button>
+                                    )}
+                                    {!valid && (
+                                        <Button
+                                            disabled={Boolean(
+                                                alignment === "right"
+                                            )}
+                                            type="submit"
+                                            onClick={makeRandom}
+                                            color="primary">
+                                            ランダム
+                                        </Button>
+                                    )}
+                                </DialogActions>
+                            </div>
+                        </main>
+                        <footer className="container">
                             <div style={{ marginTop: 1 + "em" }}></div>
                             <div>
                                 <p className="footer">
-                                    Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy
-                                    text ever since the 1500s, when an unknown
-                                    printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has
-                                    survived not only five centuries, but also
-                                    the leap into electronic typesetting,
-                                    remaining essentially unchanged.Lorem Ipsum
-                                    has been the industry's standard dummy text
-                                    ever since the 1500s, when an unknown
-                                    printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has
-                                    survived not only five centuries, but also
-                                    the leap into electronic typesetting,
-                                    remaining essentially unchanged. It was
-                                    popularised in the 1960s with the release of
-                                    Letraset sheets containing Lorem Ipsum
-                                    passages, and more recently with desktop
-                                    publishing software like Aldus PageMaker
-                                    including versions of Lorem Ipsum.
+                                    当サイトの利用については下記内容を確認し、承諾した上でご利用ください。
+                                    次に掲げるページの作成は禁止とします。投稿内容が禁止事項に該当すると判断した場
+                                    合は、作成者に事前に何ら通知することなく、投稿の削除その他必要な措置を取ることとします。
+                                    【禁止事項】
+                                    ・本人の同意のない第三者の個人情報であって、プライバシーなど個
+                                    人の権利利益を侵害するもの
+                                    ・法令等に違反し、又は違反する恐れのあるもの
+                                    ・ 公序良俗に反するもの・
+                                    人権侵害となるもの・
+                                    特定の個人、企業、団体等を誹謗中傷するもの
+                                    ・ 虚偽や事実誤認の内容を含むもの ・
+                                    わいせつな表現等不適切な内容を含むもの ・
+                                    その他、当サイトが不適切と判断したもの。
+                                    一定期間後にページは完全に削除されます。
+                                    作成したページが破壊、消失または変更された場合、当サイトは一切責任を負いません。
+                                    <br></br>
                                 </p>
+                                <div className="credit">
+                                    SONOCODE　　©2021 Syehacom
+                                </div>
+                                <br></br>
                             </div>
-                        </section>
+                        </footer>
                     </div>
                 </Dialog>
             </form>

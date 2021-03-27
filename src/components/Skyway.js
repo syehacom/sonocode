@@ -122,6 +122,7 @@ const Skyway = ({ value, selected, count }) => {
                 <FormControlLabel
                     control={
                         <Switch
+                            disabled={connect === false}
                             size="small"
                             checked={state}
                             onChange={handleChange}

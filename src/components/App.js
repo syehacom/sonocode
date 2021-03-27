@@ -48,7 +48,6 @@ const introDoc = `<html>
         30日間で消去</span>されますのでダウンロードで保存してください
         </h2><br><br><br>
         <footer>
-        <p style="font-size: 20px"><span style="font-family: 'Rubik'; color:#b8b8b8">SyehaCode</span>　©2021 Syehacom</p>
         </footer>
       </body>
       <style>
@@ -203,9 +202,9 @@ function App() {
 
     useEffect(() => {
         if (title === "") {
-            document.title = "SyehaCode - Untitled";
+            document.title = "SONOCODE - Untitled";
         } else {
-            document.title = "SyehaCode - " + title;
+            document.title = "SONOCODE - " + title;
         }
 
         if (!(html === "" && css === "" && js === "")) {
@@ -309,8 +308,7 @@ function App() {
                     <div></div>
                     <div className="page open" onClick={pageOpen}>
                         <FontAwesomeIcon icon={faPager} />
-                        <PageDialog
-                            title={title} src={srcDoc} page={page}  />
+                        <PageDialog title={title} src={srcDoc} page={page} />
                         <div>ページ</div>
                     </div>
                     <a
@@ -352,7 +350,7 @@ function App() {
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description">
                         <DialogTitle id="scroll-dialog-title">
-                            SyehaCode サービス利用規約
+                            SONOCODE サービス利用規約
                         </DialogTitle>
                         <DialogActions>
                             <Button onClick={infoClose} color="primary">
@@ -475,6 +473,10 @@ function App() {
                             </DialogContentText>
                         </DialogContent>
                     </Dialog>
+                    {/* <div className="click out" onClick={}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        <div>ホーム</div>
+                    </div> */}
                 </div>
             </nav>
             <Split sizes={[50, 50]} direction="vertical" className="box2">
