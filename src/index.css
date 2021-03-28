@@ -313,11 +313,11 @@ body,
 }
 
 .two {
-    height: 350px;
+    height: 400px;
     width: auto;
     opacity: 0.7;
     /* background-color: black; */
-    filter: brightness(0.1);
+    filter: brightness(0.2);
     background: url("https://images.unsplash.com/photo-1506097425191-7ad538b29cef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
         center;
 }
@@ -328,7 +328,16 @@ body,
     width: 564px;
     background-size: auto;
     background-repeat: no-repeat;
-    background: url("https://origsoft.com/wp-content/uploads/2020/08/origina-software-ent-quality-management-image-05.jpg");
+    background: url("https://image.freepik.com/free-vector/code-typing-concept-illustration_114360-3866.jpg");
+}
+
+.four {
+    margin-top: 10px;
+    height: 420px;
+    width: 564px;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background: url("https://image.freepik.com/free-vector/girl-student-participant-bootcamp-writing-programming-language-code-screen-laptop-projector-using-git-repository-version-control-software_68192-16.jpg");
 }
 
 header {
@@ -364,6 +373,12 @@ main div p {
     display: flex;
 }
 
+.flex-card {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 .flex-item {
     margin: 30px auto;
     padding: 5px 10px;
@@ -396,11 +411,12 @@ main div p {
 .footer {
     padding: 28px 138px;
     text-align: justify;
+    margin-top: 100px;
 }
 
 .toggle {
     width: 650px;
-    margin: 30px auto;
+    margin: 80px auto;
     padding: 30px 30px;
     color: #5d627b;
     background: white;
@@ -432,9 +448,18 @@ main div p {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     margin: 0;
     padding: 2.4rem;
-    position: relative; 
+    position: relative;
+}
+
+.slick-list {
+    margin-top: 500px;
+    width: 1000px;
+}
+
+.user {
+    text-align: center;
 }

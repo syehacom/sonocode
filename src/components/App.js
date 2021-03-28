@@ -358,17 +358,14 @@ function App() {
                             </Button>
                             <Button
                                 href={
-                                    "mailto:admin@syeha.com?subject=SyehaCodeからのお問合わせ"
+                                    "mailto:admin@syeha.com?subject=SONOCODEからのお問合わせ"
                                 }
                                 color="primary">
                                 メール送信　
                             </Button>
                         </DialogActions>
                         <DialogContent dividers>
-                            <DialogContentText
-                                id="scroll-dialog-description"
-                                // ref={descriptionElementRef}
-                                tabIndex={-1}>
+                            <DialogContentText id="scroll-dialog-description">
                                 この利用規約（以下，「本規約」といいます。）は，本サービスの利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
                                 <br></br>第1条（適用）
                                 本規約は，ユーザーと本サービスとの間のサービスの利用に関わる一切の関係に適用されるものとします。

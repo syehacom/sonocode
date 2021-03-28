@@ -10,6 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Fade from "@material-ui/core/Fade";
 import Codialog from "./Codialog";
 import Redialog from "./Redialog";
+import MediaCard from "./MediaCard";
 import firebase from "../utils/Firebase";
 import { useForm } from "react-hook-form";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -151,7 +152,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                             </div>
                         </header>
                         <main>
-                            <div class="flex-container">
+                            <div className="flex-container">
                                 <div className="flex-item">
                                     <h1>
                                         そのコードを簡単&amp;便利に <br />{" "}
@@ -175,91 +176,138 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 </div>
                                 <div className="three flex-item"></div>
                             </div>
-                            <div className="toggle">
-                                <ToggleButtonGroup
-                                    // orientation="vertical"
-                                    value={alignment}
-                                    exclusive
-                                    onChange={handleAlignment}
-                                    aria-label="text alignment">
-                                    <ToggleButton
-                                        classes={{
-                                            selected: classes.buttonColor,
-                                            root: classes.root,
-                                        }}
-                                        value="left"
-                                        aria-label="left aligned">
-                                        作成する
-                                    </ToggleButton>
-                                    <ToggleButton
-                                        classes={{
-                                            selected: classes.buttonColor,
-                                            root: classes.root,
-                                        }}
-                                        value="right"
-                                        aria-label="right aligned">
-                                        利用する
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                                {/* <DialogTitle id="form-dialog-title">
+                            <div className="flex-container">
+                                <div className="four flex-item"></div>
+                                <div className="flex-item">
+                                    <div className="toggle">
+                                        <ToggleButtonGroup
+                                            // orientation="vertical"
+                                            value={alignment}
+                                            exclusive
+                                            onChange={handleAlignment}
+                                            aria-label="text alignment">
+                                            <ToggleButton
+                                                classes={{
+                                                    selected:
+                                                        classes.buttonColor,
+                                                    root: classes.root,
+                                                }}
+                                                value="left"
+                                                aria-label="left aligned">
+                                                作成する
+                                            </ToggleButton>
+                                            <ToggleButton
+                                                classes={{
+                                                    selected:
+                                                        classes.buttonColor,
+                                                    root: classes.root,
+                                                }}
+                                                value="right"
+                                                aria-label="right aligned">
+                                                利用する
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                        {/* <DialogTitle id="form-dialog-title">
                         ページを作成or利用する
                     </DialogTitle> */}
-                                <DialogContent>
-                                    {/* <DialogContentText></DialogContentText> */}
-                                    <TextField
-                                        inputProps={{ style: { fontSize: 18 } }} // font size of input text
-                                        InputLabelProps={{
-                                            style: { fontSize: 18 },
-                                        }} // font size of input label
-                                        defaultValue=""
-                                        autoFocus
-                                        name="body"
-                                        margin="normal"
-                                        id="name"
-                                        label="ページ名"
-                                        type="text"
-                                        className={classes.textField}
-                                        fullWidth
-                                        onChange={(e) =>
-                                            setValid(e.target.value)
-                                        }
-                                        inputRef={register({
-                                            required: true,
-                                            minLength: 10,
-                                            // pattern: /^([a-zA-Z0-9]{10,})$/,
-                                        })}
-                                        error={Boolean(errors.body)}
-                                        helperText={
-                                            errors.body &&
-                                            "10文字以上にして下さい。"
-                                        }
-                                    />
-                                </DialogContent>
-                                <DialogActions>
-                                    {/* <Button onClick={handleCancel} color="primary">
+                                        <DialogContent>
+                                            {/* <DialogContentText></DialogContentText> */}
+                                            <TextField
+                                                inputProps={{
+                                                    style: { fontSize: 18 },
+                                                }} // font size of input text
+                                                InputLabelProps={{
+                                                    style: { fontSize: 18 },
+                                                }} // font size of input label
+                                                defaultValue=""
+                                                autoFocus
+                                                name="body"
+                                                margin="normal"
+                                                id="name"
+                                                label="ページ名"
+                                                type="text"
+                                                className={classes.textField}
+                                                fullWidth
+                                                onChange={(e) =>
+                                                    setValid(e.target.value)
+                                                }
+                                                inputRef={register({
+                                                    required: true,
+                                                    minLength: 10,
+                                                    // pattern: /^([a-zA-Z0-9]{10,})$/,
+                                                })}
+                                                error={Boolean(errors.body)}
+                                                helperText={
+                                                    errors.body &&
+                                                    "10文字以上にして下さい。"
+                                                }
+                                            />
+                                        </DialogContent>
+                                        <DialogActions>
+                                            {/* <Button onClick={handleCancel} color="primary">
                         キャンセル
                     </Button> */}
-                                    {valid && (
-                                        <Button
-                                            disabled={Boolean(errors.body)}
-                                            type="submit"
-                                            onClick={handleDo}
-                                            color="primary">
-                                            OK
-                                        </Button>
-                                    )}
-                                    {!valid && (
-                                        <Button
-                                            disabled={Boolean(
-                                                alignment === "right"
+                                            {valid && (
+                                                <Button
+                                                    disabled={Boolean(
+                                                        errors.body
+                                                    )}
+                                                    type="submit"
+                                                    onClick={handleDo}
+                                                    color="primary">
+                                                    OK
+                                                </Button>
                                             )}
-                                            type="submit"
-                                            onClick={makeRandom}
-                                            color="primary">
-                                            ランダム
-                                        </Button>
-                                    )}
-                                </DialogActions>
+                                            {!valid && (
+                                                <Button
+                                                    disabled={Boolean(
+                                                        alignment === "right"
+                                                    )}
+                                                    type="submit"
+                                                    onClick={makeRandom}
+                                                    color="primary">
+                                                    ランダム
+                                                </Button>
+                                            )}
+                                        </DialogActions>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="user">
+                                <h1>ニーズに合ったカスタマイズが可能です</h1>
+                            </div>
+                            <div className="flex-card">
+                                <div className="flex-item">
+                                    <MediaCard
+                                        shop1={
+                                            "https://image.shutterstock.com/image-vector/ui-designer-creates-structure-information-600w-1833782983.jpg"
+                                        }
+                                        shop2={"プログラミング教室"}
+                                        shop3={
+                                            "リモートでの運営に適しています"
+                                        }
+                                    />
+                                </div>
+                                <div className="flex-item">
+                                    <MediaCard
+                                        shop1={
+                                            "https://image.shutterstock.com/image-vector/business-team-working-on-big-600w-1215394804.jpg"
+                                        }
+                                        shop2={"障がい者就労支援"}
+                                        shop3={
+                                            "日々の作業や訓練にご利用ください"
+                                        }
+                                    />
+                                </div>
+                                <div className="flex-item">
+                                    <MediaCard
+                                        shop1={
+                                            "https://image.shutterstock.com/image-vector/man-works-sitting-table-laptop-600w-1746221000.jpg"
+                                        }
+                                        shop2={"クライアントとの打合せ"}
+                                        shop3={"デザインの確認に役に立ちます"}
+                                    />
+                                </div>
                             </div>
                         </main>
                         <footer className="container">
@@ -286,7 +334,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="credit">
                                     SONOCODE　　©2021 Syehacom
                                 </div>
-                                <br></br>
+                                <br></br><br></br>
                             </div>
                         </footer>
                     </div>
