@@ -15,6 +15,8 @@ import firebase from "../utils/Firebase";
 import { useForm } from "react-hook-form";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import ReactPlayer from "react-player";
+import Fab from "@material-ui/core/Fab";
 const database = firebase.database();
 
 const FormDialog = ({ isOpen, doClose, setValue }) => {
@@ -27,6 +29,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
     const [dialog, setDialog] = useState("");
     const [random, setRandom] = useState(false);
     const [choice, setChoice] = useState(" を作成しますか");
+    const [openmov, setOpenmov] = React.useState(false);
 
     useEffect(() => {
         setOpen(isOpen);
@@ -115,7 +118,15 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
         }
     };
 
-    const useStyles = makeStyles({
+    const handleOpen = () => {
+        setOpenmov(true);
+    };
+
+    const handleClose = () => {
+        setOpenmov(false);
+    };
+
+    const useStyles = makeStyles((theme) => ({
         root: {
             fontSize: "18px",
         },
@@ -126,7 +137,12 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                 fontSize: "18px",
             },
         },
-    });
+        extendedIcon: {
+            marginRight: theme.spacing(1),
+            backgroundColor: "#3f51b5",
+            color: "#ffffff",
+        },
+    }));
     const classes = useStyles();
 
     return (
@@ -156,23 +172,37 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <h1>
                                         そのコードを簡単&amp;便利に <br />{" "}
-                                        共有しましょう
+                                        共有しよう
                                     </h1>
                                     <p>
-                                        まずは、ページを作成してみよう
-                                        <span role="img" aria-label="emoji">
+                                        まずは、ページを作成してみよう。
+                                        {/* <span role="img" aria-label="emoji">
                                             😃
-                                        </span>
-                                        ページ名を共有し同じページにアクセスすることでリアルタイムに共同編集
-                                        <span role="img" aria-label="emoji">
-                                            💻
-                                        </span>
-                                        ができます。
-                                        音声チャットやページプレビューを使ってウェブデザインを教えたり、一緒に考えたりしましょう
-                                        <span role="img" aria-label="emoji">
-                                            ❕
-                                        </span>
+                                        </span> */}
+                                        ページ名を共有して音声チャットやプレビューを
+                                        使いウェブデザインを教えたり、一緒に考えたりしよう！
                                     </p>
+                                    <div className="movie">
+                                        <Fab
+                                            variant="extended"
+                                            onClick={handleOpen}
+                                            className={classes.extendedIcon}>
+                                            動画をみてみる
+                                        </Fab>
+                                        <Dialog
+                                            onClose={handleClose}
+                                            aria-labelledby="simple-dialog-title"
+                                            open={openmov}>
+                                            <ReactPlayer
+                                                url="https://youtu.be/aXHZe1Tf9bg"
+                                                height="500px"
+                                                width="600px"
+                                                controls
+                                                playing
+                                                muted
+                                            />
+                                        </Dialog>
+                                    </div>
                                 </div>
                                 <div className="three flex-item"></div>
                             </div>
@@ -274,7 +304,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 </div>
                             </div>
                             <div className="user">
-                                <h1>ニーズに合ったカスタマイズが可能です</h1>
+                                <h1>ニーズに合ったカスタマイズが可能</h1>
                             </div>
                             <div className="flex-card">
                                 <div className="flex-item">
@@ -283,9 +313,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                             "https://image.shutterstock.com/image-vector/ui-designer-creates-structure-information-600w-1833782983.jpg"
                                         }
                                         shop2={"プログラミング教室"}
-                                        shop3={
-                                            "リモートでの運営に適しています"
-                                        }
+                                        shop3={"リモートでの運営に適しています"}
                                     />
                                 </div>
                                 <div className="flex-item">
@@ -334,7 +362,8 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="credit">
                                     SONOCODE　　©2021 Syehacom
                                 </div>
-                                <br></br><br></br>
+                                <br></br>
+                                <br></br>
                             </div>
                         </footer>
                     </div>
