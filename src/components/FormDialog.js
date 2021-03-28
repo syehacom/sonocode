@@ -300,7 +300,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 </div>
                             </div>
                             <div className="user">
-                                <h1>ニーズに合ったカスタマイズが可能</h1>
+                                <h1>ニーズに合った使い方をしよう</h1>
                             </div>
                             <div className="flex-card">
                                 <div className="flex-item">
