@@ -167,17 +167,14 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                         <main>
                             <div className="flex-container">
                                 <div className="flex-item">
-                                    <h1>
-                                        そのコードを簡単&amp;便利に<br></br>
-                                        共有しよう
-                                    </h1>
+                                    <h1>そのコードを簡単&amp;便利に共有</h1>
                                     <p>
                                         まずは、ページを作成してみよう。
                                         {/* <span role="img" aria-label="emoji">
                                             😃
                                         </span> */}
                                         ページ名を共有して音声チャットやプレビューを
-                                        使いウェブデザインを教えたり、一緒に考えたりしよう！
+                                        使いウェブデザインを教えたり、一緒に考えたりしよう。
                                         （モバイル非対応）
                                     </p>
                                     <div className="movie">
@@ -207,6 +204,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                             <div className="flex-container">
                                 <div className="four flex-item"></div>
                                 <div className="flex-item">
+                                    <h1>さあ、はじめてみよう！</h1>
                                     <div className="toggle">
                                         <ToggleButtonGroup
                                             // orientation="vertical"
@@ -353,8 +351,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     ・ 虚偽や事実誤認の内容を含むもの ・
                                     わいせつな表現等不適切な内容を含むもの ・
                                     その他、当サイトが不適切と判断したもの。
-                                    一定期間後にページは完全に削除されます。
-                                    作成したページが破壊、消失または変更された場合、当サイトは一切責任を負いません。
+                                    一定期間後にページは完全に削除されますが、
+                                    作成したページが破壊、消失または変更された場合で
+                                    あっても当サイトは一切責任を負いません。
                                 </p>
                                 <div className="credit">
                                     SONOCODE　　©2021 Syehacom
