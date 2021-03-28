@@ -157,12 +157,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                     transitionDuration="0"
                     keepMounted
                     aria-labelledby="form-dialog-title">
-                    <div>
+                    <div className="all">
                         <header>
-                            <div
-                                className="two"
-                                height="400px"
-                                width="400px"></div>
+                            <div className="two"></div>
                             <div className="carousel-caption">
                                 <div className="content">SONOCODE</div>
                             </div>
@@ -171,7 +168,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                             <div className="flex-container">
                                 <div className="flex-item">
                                     <h1>
-                                        そのコードを簡単&amp;便利に <br />{" "}
+                                        そのコードを簡単&amp;便利に<br></br>
                                         共有しよう
                                     </h1>
                                     <p>
@@ -181,6 +178,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         </span> */}
                                         ページ名を共有して音声チャットやプレビューを
                                         使いウェブデザインを教えたり、一緒に考えたりしよう！
+                                        （モバイル非対応）
                                     </p>
                                     <div className="movie">
                                         <Fab
@@ -310,7 +308,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://image.shutterstock.com/image-vector/ui-designer-creates-structure-information-600w-1833782983.jpg"
+                                            "https://thumbs.dreamstime.com/z/programing-language-design-illustration-eps-graphic-65093426.jpg"
                                         }
                                         shop2={"プログラミング教室"}
                                         shop3={"リモートでの運営に適しています"}
@@ -319,7 +317,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://image.shutterstock.com/image-vector/business-team-working-on-big-600w-1215394804.jpg"
+                                            "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-code-concept-illustration-students-using-laptops-developing-programs-app-flat-87312378.jpg"
                                         }
                                         shop2={"障がい者就労支援"}
                                         shop3={
@@ -330,7 +328,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://image.shutterstock.com/image-vector/man-works-sitting-table-laptop-600w-1746221000.jpg"
+                                            "https://thumbs.dreamstime.com/z/isometric-programmer-working-software-develop-company-office-developing-programming-coding-technologies-concept-ux-ui-129642993.jpg"
                                         }
                                         shop2={"クライアントとの打合せ"}
                                         shop3={"デザインの確認に役に立ちます"}
@@ -357,7 +355,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     その他、当サイトが不適切と判断したもの。
                                     一定期間後にページは完全に削除されます。
                                     作成したページが破壊、消失または変更された場合、当サイトは一切責任を負いません。
-                                    <br></br>
                                 </p>
                                 <div className="credit">
                                     SONOCODE　　©2021 Syehacom

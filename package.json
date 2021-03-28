@@ -62,7 +62,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "format": "prettier --config ./.prettierrc.json --ignore-path ./.prettierignore --write .",
-        "deploy": "npm run build && firebase deploy"
+        "deploy": "npm run build && firebase deploy --only hosting"
     },
     "eslintConfig": {
         "extends": "react-app"

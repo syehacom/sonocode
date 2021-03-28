@@ -18,6 +18,7 @@ import CopyToClipBoard from "react-copy-to-clipboard";
 import firebase from "../utils/Firebase";
 import FormDialog from "./FormDialog";
 import EmDialog from "./EmDialog";
+import Contact from "./Contact";
 import PageDialog from "./PageDialog";
 import Skyway from "./Skyway";
 import Button from "@material-ui/core/Button";
@@ -25,7 +26,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+// import DialogTitle from "@material-ui/core/DialogTitle";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // import LocalStorage from "../hooks/useLocalStorage";
 const database = firebase.database();
@@ -37,10 +38,7 @@ const introDoc = `<html>
         <h1 style="font-size: 30px"><br>
         はじめてみよう<span style="font-family: 'Rubik'; color:#b8b8b8">ウェブデザイン</span>
         </h1>
-        <br><br>
-        <h2 style="font-size: 20px">
-        <span style="font-family: 'Rubik'; color:#b8b8b8">利用方法</span>
-        </h2><br>
+        <br><br><br><br>
         <h2 style="font-size: 20px">
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
         音声ボタンからチャットに参加、マイクボタンでミュート操作ができます
@@ -349,23 +347,18 @@ function App() {
                         scroll="paper"
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description">
-                        <DialogTitle id="scroll-dialog-title">
-                            SONOCODE サービス利用規約
-                        </DialogTitle>
                         <DialogActions>
                             <Button onClick={infoClose} color="primary">
                                 閉じる
                             </Button>
-                            <Button
-                                href={
-                                    "mailto:admin@syeha.com?subject=SONOCODEからのお問合わせ"
-                                }
-                                color="primary">
-                                メール送信　
-                            </Button>
                         </DialogActions>
+                        <Contact />
+                        {/* <DialogTitle id="scroll-dialog-title">
+                            SONOCODE サービス利用規約
+                        </DialogTitle> */}
                         <DialogContent dividers>
                             <DialogContentText id="scroll-dialog-description">
+                                サービス利用規約<br></br>
                                 この利用規約（以下，「本規約」といいます。）は，本サービスの利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
                                 <br></br>第1条（適用）
                                 本規約は，ユーザーと本サービスとの間のサービスの利用に関わる一切の関係に適用されるものとします。
