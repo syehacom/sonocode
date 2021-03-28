@@ -36,9 +36,9 @@ const introDoc = `<html>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
         <div style="font-family: 'Lato'" class="intro-text">
         <h1 style="font-size: 30px"><br>
-        はじめてみよう<span style="font-family: 'Rubik'; color:#b8b8b8">ウェブデザイン</span>
+        はじめよう<span style="font-family: 'Rubik'; color:#b8b8b8">プログラミング</span>
         </h1>
-        <br><br><br><br>
+        <br><br><br>
         <h2 style="font-size: 20px">
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
         音声ボタンからチャットに参加、マイクボタンでミュート操作ができます
