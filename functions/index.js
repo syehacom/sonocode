@@ -16,13 +16,11 @@ const mailTransport = nodemailer.createTransport({
 //  管理者用のメールテンプレート
 const adminContents = (data) => {
     return `以下内容でお問い合わせを受け付けました。
-
+    
 お名前:
 ${data.name}
-
 メールアドレス:
 ${data.email}
-
 内容:
 ${data.content}
 `;
@@ -34,7 +32,7 @@ exports.sendMail = functions.https.onCall((data, context) => {
         from: gmailEmail,
         to: data.email,
         bcc: gmailEmail,
-        subject: "【SOKOCODE】お問い合わせ",
+        subject: "【SONOCODE】お問い合わせ",
         text: adminContents(data),
     };
 

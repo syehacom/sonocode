@@ -200,7 +200,7 @@ function App() {
 
     useEffect(() => {
         if (title === "") {
-            document.title = "SONOCODE - Untitled";
+            document.title = "SONOCODE";
         } else {
             document.title = "SONOCODE - " + title;
         }

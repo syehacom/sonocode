@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core";
@@ -182,14 +182,14 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                             variant="extended"
                                             onClick={handleOpen}
                                             className={classes.extendedIcon}>
-                                            動画をみてみる
+                                            動画を見てみよう
                                         </Fab>
                                         <Dialog
                                             onClose={handleClose}
                                             aria-labelledby="simple-dialog-title"
                                             open={openmov}>
                                             <ReactPlayer
-                                                url="https://youtu.be/aXHZe1Tf9bg"
+                                                url="https://youtu.be/Uu9F5Pug6jI"
                                                 height="500px"
                                                 width="600px"
                                                 controls
@@ -317,7 +317,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         shop1={
                                             "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-code-concept-illustration-students-using-laptops-developing-programs-app-flat-87312378.jpg"
                                         }
-                                        shop2={"障がい者就労支援"}
+                                        shop2={"障がいがある方への就労支援"}
                                         shop3={
                                             "日々の作業や訓練にご利用ください"
                                         }
