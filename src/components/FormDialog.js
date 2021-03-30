@@ -234,7 +234,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                                 利用する
                                             </ToggleButton>
                                         </ToggleButtonGroup>
-                                          <DialogContent>
+                                        <DialogContent>
                                             {/* <DialogContentText></DialogContentText> */}
                                             <TextField
                                                 inputProps={{
@@ -310,7 +310,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-code-concept-illustration-students-using-laptops-developing-programs-app-flat-87312378.jpg"
+                                            "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-big-tablet-ps-phone-flat-modern-illustration-programmer-laptop-using-programmimg-137771074.jpg"
                                         }
                                         shop2={"障がいがある方への就労支援"}
                                         shop3={
@@ -321,10 +321,12 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://thumbs.dreamstime.com/z/isometric-programmer-working-software-develop-company-office-developing-programming-coding-technologies-concept-ux-ui-129642993.jpg"
+                                            "https://thumbs.dreamstime.com/z/program-coding-abstract-flat-vector-illustration-software-development-concepts-design-elements-mobile-web-47007031.jpg "
                                         }
                                         shop2={"クライアントとの打合せ"}
-                                        shop3={"デザインの確認や共有に役に立ちます"}
+                                        shop3={
+                                            "デザインの確認や共有に役に立ちます"
+                                        }
                                     />
                                 </div>
                             </div>

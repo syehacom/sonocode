@@ -105,13 +105,13 @@ const Contact = ({ doNo }) => {
                         onChange={handleChange}
                         inputRef={register({
                             required: "required!",
-                            pattern: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/,                            
+                            // pattern: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/,                            
                         })}
                         error={Boolean(errors.email)}
-                        helperText={
-                            errors.email &&
-                            "メールアドレス形式で入力してください。"
-                        }
+                        // helperText={
+                        //     errors.email &&
+                        //     "メールアドレス形式で入力してください。"
+                        // }
                     />
                     <TextField
                         name="name"
@@ -125,7 +125,7 @@ const Contact = ({ doNo }) => {
                             required: "required!",
                         })}
                         error={Boolean(errors.name)}
-                        helperText={errors.name && "お名前を入力してください"}
+                        // helperText={errors.name && "お名前を入力してください"}
                     />
                     <TextField
                         name="content"
@@ -140,12 +140,12 @@ const Contact = ({ doNo }) => {
                         onChange={handleChange}
                         inputRef={register({
                             required: "required!",
-                            maxLength: 300,
+                            // maxLength: 300,
                         })}
                         error={Boolean(errors.content)}
-                        helperText={
-                            errors.content && "300文字以内にして下さい。"
-                        }
+                        // helperText={
+                        //     errors.content && "300文字以内にして下さい。"
+                        // }
                     />
                     <Button
                         variant="contained"

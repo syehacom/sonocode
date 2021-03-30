@@ -22,7 +22,7 @@ const Skyway = ({ value, selected, count }) => {
     const remoteVideo = useRef(null);
 
     useEffect(() => {
-        setCallId("value");
+        setCallId(value);
         setMount(true);
     }, [value]);
 
