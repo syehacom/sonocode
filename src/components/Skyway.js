@@ -41,35 +41,33 @@ const Skyway = ({ value, selected, count }) => {
         // eslint-disable-next-line
     }, [selected]);
 
-    useEffect(() => {
+    const makeCall = () => {
+
         navigator.mediaDevices
             .getUserMedia({ video: false, audio: true })
             .then((localStream) => {
                 localVideo.current.srcObject = localStream;
-            });
-    }, []);
-
-    const makeCall = () => {
-        const mediaConnection = peer.joinRoom(callId, {
-            mode: "sfu",
-            stream: localVideo.current.srcObject,
-        });
-        peer.on("open", (mediaConnection) => {
-            mediaConnection.on("stream", async (stream) => {
-                remoteVideo.current.srcObject = stream;
-            });
-        });
-
-        mediaConnection.on("stream", async (stream) => {
-            setRemoteVideoData((oldRemoteVideoData) => [
-                ...oldRemoteVideoData,
-                stream,
-            ]);
-        });
-        localVideo.current.srcObject
-            .getAudioTracks()
-            .forEach((track) => (track.enabled = false));
-        setConnect(true);
+                localVideo.current.srcObject
+                    .getAudioTracks()
+                    .forEach((track) => (track.enabled = false));
+                setConnect(true);
+        
+                const mediaConnection = peer.joinRoom(callId, {
+                    mode: "sfu",
+                    stream: localVideo.current.srcObject,
+                });
+                peer.on("open", (mediaConnection) => {
+                    mediaConnection.on("stream", async (stream) => {
+                        remoteVideo.current.srcObject = stream;
+                    });
+                });
+                mediaConnection.on("stream", async (stream) => {
+                    setRemoteVideoData((oldRemoteVideoData) => [
+                        ...oldRemoteVideoData,
+                        stream,
+                    ]);
+                });
+            })
     };
 
     const leaveCall = () => {
