@@ -41,9 +41,10 @@ const introDoc = `<html>
         <br><br><br>
         <h2 style="font-size: 20px">
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
-        音声ボタンからチャットに参加、マイクボタンでミュート操作ができます
-        <br>ページは<span style="font-family: 'Rubik'; color:#ba000d">
-        30日間で消去</span>されますのでダウンロードで保存してください
+        音声ボタンからチャットに参加、マイクボタンでミュート操作ができます<br>
+        ページボタンでプレビュー、HTML、CSS、JSの各ボタンからファイルを
+        <br>ダウンロードで保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
+        30日間で消去</span>されます。
         </h2><br><br><br>
         <footer>
         </footer>

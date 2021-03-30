@@ -321,7 +321,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="flex-item">
                                     <MediaCard
                                         shop1={
-                                            "https://thumbs.dreamstime.com/z/program-coding-abstract-flat-vector-illustration-software-development-concepts-design-elements-mobile-web-47007031.jpg "
+                                            "https://image.freepik.com/free-vector/programmer-concept-illustration_114360-2284.jpg"
                                         }
                                         shop2={"クライアントとの打合せ"}
                                         shop3={
