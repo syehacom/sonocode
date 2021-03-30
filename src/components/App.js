@@ -12,7 +12,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import Badge from "@material-ui/core/Badge";
+// import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import CopyToClipBoard from "react-copy-to-clipboard";
 import firebase from "../utils/Firebase";
@@ -75,28 +75,28 @@ function App() {
     const [openTip, setOpenTip] = useState(false);
     const [emerge, setEmerge] = useState(false);
     const [page, setPage] = useState(false);
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
 
     const title = value;
 
     useEffect(() => {
         setOpen(true);
 
-        database.ref(title + "/html").on("value", (data) => {
+        database.ref("data/" + title + "/html").on("value", (data) => {
             setHtml(data.val());
         });
 
-        database.ref(title + "/css").on("value", (data) => {
+        database.ref("data/" + title + "/css").on("value", (data) => {
             setCss(data.val());
         });
 
-        database.ref(title + "/js").on("value", (data) => {
+        database.ref("data/" + title + "/js").on("value", (data) => {
             setJs(data.val());
         });
 
-        database.ref(title + "/count").on("value", (data) => {
-            setCount(data.val());
-        });
+        // database.ref("data/" + title + "/count").on("value", (data) => {
+        //     setCount(data.val());
+        // });
     }, [title]);
 
     const downloadHtml = () => {
@@ -140,9 +140,9 @@ function App() {
     };
 
     const clearEditor = () => {
-        database.ref(title + "/html").set("");
-        database.ref(title + "/css").set("");
-        database.ref(title + "/js").set("");
+        database.ref("data/" + title + "/html").set("");
+        database.ref("data/" + title + "/css").set("");
+        database.ref("data/" + title + "/js").set("");
         setEmerge(false);
     };
 
@@ -187,15 +187,15 @@ function App() {
     };
 
     const setsHtml = (value) => {
-        database.ref(title + "/html").set(value);
+        database.ref("data/" + title + "/html").set(value);
     };
 
     const setsCss = (value) => {
-        database.ref(title + "/css").set(value);
+        database.ref("data/" + title + "/css").set(value);
     };
 
     const setsJs = (value) => {
-        database.ref(title + "/js").set(value);
+        database.ref("data/" + title + "/js").set(value);
     };
 
     useEffect(() => {
@@ -300,8 +300,8 @@ function App() {
                         onChange={() => {
                             setSelected(!selected);
                         }}>
-                        音声　
-                        <Badge badgeContent={count} color="secondary"></Badge>
+                        音声
+                        {/* <Badge badgeContent={count} color="secondary"></Badge> */}
                     </ToggleButton>
                     <div></div>
                     <div className="page open" onClick={pageOpen}>
@@ -352,7 +352,7 @@ function App() {
                                 閉じる
                             </Button>
                         </DialogActions>
-                        <Contact />
+                        <Contact doNo={() => { setInfo(false) }} />
                         {/* <DialogTitle id="scroll-dialog-title">
                             SONOCODE サービス利用規約
                         </DialogTitle> */}
@@ -520,7 +520,11 @@ function App() {
                 className="text-center">
                 {/* <FontAwesomeIcon icon={faGithub} />
                 <span>&nbsp;syehacom</span> */}
-                <Skyway count={count} value={value} selected={selected} />
+                <Skyway
+                    // count={count}
+                    value={value}
+                    selected={selected}
+                />
             </div>
         </div>
     );

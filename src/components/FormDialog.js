@@ -61,7 +61,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
         if (alignment === "left") {
             firebase
                 .database()
-                .ref(valid)
+                .ref("data/" + valid)
                 .once("value", (snapshot) => {
                     if (snapshot.exists()) {
                         console.log("exists!");
@@ -70,7 +70,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                     } else {
                         setTitle(valid);
                         setEnter(true);
-                        database.ref(valid).set({
+                        database.ref("data/" + valid).set({
                             title: valid,
                             html: "",
                             css: "",
@@ -84,7 +84,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
         } else {
             firebase
                 .database()
-                .ref(valid)
+                .ref("data/" + valid)
                 .once("value", (snapshot) => {
                     if (snapshot.exists()) {
                         setTitle(valid);
@@ -141,12 +141,13 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
             marginRight: theme.spacing(1),
             backgroundColor: "#3f51b5",
             color: "#ffffff",
+            fontSize:"20px"
         },
     }));
     const classes = useStyles();
 
     return (
-        <div>
+        <div className="open">
             <p>{setValue(comment)}</p>
             <form onChange={handleSubmit(onSubmit)}>
                 <Dialog
@@ -175,7 +176,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         </span> */}
                                         ページ名を共有して音声チャットやプレビューを
                                         使いウェブデザインを教えたり、一緒に考えたりしよう。
-                                        （モバイル非対応）
+                                        （パソコンからご利用ください）
                                     </p>
                                     <div className="movie">
                                         <Fab
@@ -233,10 +234,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                                 利用する
                                             </ToggleButton>
                                         </ToggleButtonGroup>
-                                        {/* <DialogTitle id="form-dialog-title">
-                        ページを作成or利用する
-                    </DialogTitle> */}
-                                        <DialogContent>
+                                          <DialogContent>
                                             {/* <DialogContentText></DialogContentText> */}
                                             <TextField
                                                 inputProps={{
@@ -270,9 +268,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                             />
                                         </DialogContent>
                                         <DialogActions>
-                                            {/* <Button onClick={handleCancel} color="primary">
-                        キャンセル
-                    </Button> */}
                                             {valid && (
                                                 <Button
                                                     disabled={Boolean(
@@ -319,7 +314,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         }
                                         shop2={"障がいがある方への就労支援"}
                                         shop3={
-                                            "日々の作業や訓練にご利用ください"
+                                            "事業所での作業や訓練にご利用ください"
                                         }
                                     />
                                 </div>
@@ -329,7 +324,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                             "https://thumbs.dreamstime.com/z/isometric-programmer-working-software-develop-company-office-developing-programming-coding-technologies-concept-ux-ui-129642993.jpg"
                                         }
                                         shop2={"クライアントとの打合せ"}
-                                        shop3={"デザインの確認に役に立ちます"}
+                                        shop3={"デザインの確認や共有に役に立ちます"}
                                     />
                                 </div>
                             </div>

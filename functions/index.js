@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const nodemailer = require("nodemailer");
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
-// const adminEmail = functions.config().admin.email;
+const adminEmail = functions.config().admin.email;
 
 //  メールサーバの設定
 const mailTransport = nodemailer.createTransport({
@@ -15,7 +15,7 @@ const mailTransport = nodemailer.createTransport({
 
 //  管理者用のメールテンプレート
 const adminContents = (data) => {
-    return `以下内容でお問い合わせを受け付けました。
+    return `以下内容でお問合せを受け付けました。
     
 お名前:
 ${data.name}
@@ -23,15 +23,20 @@ ${data.name}
 ${data.email}
 内容:
 ${data.content}
+
+
+SONOCODE
+ Produced by Syehacom
 `;
 };
 
 exports.sendMail = functions.https.onCall((data, context) => {
+    
     //  メール設定
     let email = {
-        from: gmailEmail,
+        from: "SONOCODE <" + gmailEmail + ">",
         to: data.email,
-        bcc: gmailEmail,
+        bcc: [gmailEmail, adminEmail],
         subject: "【SONOCODE】お問い合わせ",
         text: adminContents(data),
     };

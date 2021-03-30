@@ -13,6 +13,10 @@ body,
     outline: none;
 }
 
+.all{
+    background-image : url("https://beiz.jp/images_L/wallpaper/wallpaper_00016.jpg");
+}
+
 .nav-bar {
     padding: 6px 10px;
     background-color: #1f2023;
@@ -312,9 +316,6 @@ body,
     margin: 0 auto;
 }
 
-.all{
-    background-color: white;
-}
 .two {
     height: 25vw;
     margin-bottom: 70px;
@@ -406,7 +407,7 @@ main div p {
     font-size: 7.5vw;
     text-align: left;
     font-weight: bold;
-    color: #f5f1f1;
+    color: #e7e5e5;
 }
 
 .container {

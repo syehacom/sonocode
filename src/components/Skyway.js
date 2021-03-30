@@ -8,8 +8,8 @@ import {
     faMicrophoneSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import firebase from "../utils/Firebase";
-const database = firebase.database();
+// import firebase from "../utils/Firebase";
+// const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
@@ -22,51 +22,53 @@ const Skyway = ({ value, selected, count }) => {
     const remoteVideo = useRef(null);
 
     useEffect(() => {
-        setCallId(value);
+        setCallId("value");
         setMount(true);
     }, [value]);
 
     useEffect(() => {
         if (selected === true) {
             makeCall();
-            database.ref(value + "/count").set(count + 1);
+            // database.ref("data/" + value + "/count").set(count + 1);
         } else {
             if (mount === true) {
                 leaveCall();
-                if (count > 0) {
-                    database.ref(value + "/count").set(count - 1);
-                }
+                // if (count > 0) {
+                //     database.ref("data/" + value + "/count").set(count - 1);
+                // }
             }
         }
         // eslint-disable-next-line
     }, [selected]);
 
-    peer.on("open", () => {
+    useEffect(() => {
         navigator.mediaDevices
             .getUserMedia({ video: false, audio: true })
             .then((localStream) => {
                 localVideo.current.srcObject = localStream;
             });
-    });
-
-    peer.on("call", (mediaConnection) => {
-        mediaConnection.answer(localVideo.current.srcObject);
-        mediaConnection.on("stream", async (stream) => {
-            remoteVideo.current.srcObject = stream;
-        });
-    });
+    }, []);
 
     const makeCall = () => {
         const mediaConnection = peer.joinRoom(callId, {
             mode: "sfu",
             stream: localVideo.current.srcObject,
         });
+        peer.on("open", (mediaConnection) => {
+            mediaConnection.on("stream", async (stream) => {
+                remoteVideo.current.srcObject = stream;
+            });
+        });
+
         mediaConnection.on("stream", async (stream) => {
             setRemoteVideoData((oldRemoteVideoData) => [
                 ...oldRemoteVideoData,
                 stream,
             ]);
         });
+        localVideo.current.srcObject
+            .getAudioTracks()
+            .forEach((track) => (track.enabled = false));
         setConnect(true);
     };
 
@@ -76,19 +78,20 @@ const Skyway = ({ value, selected, count }) => {
             stream: localVideo.current.srcObject,
         });
         mediaConnection.close();
+        setState(true);
         setConnect(false);
     };
 
-    if (connect === true && count > 0) {
-        database
-            .ref(value + "/count")
-            .onDisconnect()
-            .set(count - 1);
-    }
+    // if (connect === true && count > 0) {
+    //     database
+    //         .ref("data/" + value + "/count")
+    //         .onDisconnect()
+    //         .set("data/" + count - 1);
+    // }
 
     const handleChange = (event) => {
         setState(event.target.checked);
-        // console.log(state);
+        console.log(state);
         localVideo.current.srcObject
             .getAudioTracks()
             .forEach((track) => (track.enabled = state));

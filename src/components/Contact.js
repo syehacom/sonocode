@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { useForm } from "react-hook-form";
 import firebase from "firebase/app";
 import "firebase/functions";
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Contact() {
+const Contact = ({ doNo }) => {
     const classes = useStyles();
     const [sendData, setSendData] = useState({
         email: "",
@@ -42,8 +43,8 @@ export default function Contact() {
     });
 
     //  Submit Button
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
+        // e.preventDefault();
         setLoading(true);
 
         let sendMail = firebase.functions().httpsCallable("sendMail");
@@ -51,8 +52,7 @@ export default function Contact() {
             .then(() => {
                 setSnackBarInfo({
                     severity: "success",
-                    message:
-                        "お問合せありがとうございます。送信完了しました。",
+                    message: "お問合せありがとうございます。送信完了しました。",
                 });
                 setSnackBarOpen(true);
                 console.log("Successed send mail.");
@@ -89,61 +89,89 @@ export default function Contact() {
         setSnackBarOpen(false);
     };
 
+    const { register, handleSubmit, errors } = useForm();
+
     return (
-        <main>
-            <Container maxWidth="sm" className={classes.contactForm}>
-                <TextField
-                    name="email"
-                    label="メールアドレス"
-                    type="mail"
-                    required
-                    className={classes.textField}
-                    value={sendData.email}
-                    onChange={handleChange}
-                />
-                <TextField
-                    name="name"
-                    label="お名前"
-                    type="text"
-                    required
-                    className={classes.textField}
-                    value={sendData.name}
-                    onChange={handleChange}
-                />
-                <TextField
-                    name="content"
-                    label="お問合せ内容"
-                    required
-                    multiline
-                    rows="5"
-                    margin="normal"
-                    variant="outlined"
-                    className={classes.textField}
-                    value={sendData.content}
-                    onChange={handleChange}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    className={classes.textField}
-                    onClick={handleSubmit}>
-                    送信
-                </Button>
-                <Backdrop className={classes.backdrop} open={loading}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-                <Snackbar
-                    open={snackbarOpen}
-                    autoHideDuration={6000}
-                    onClose={handleSnackBarClose}>
-                    <Alert
-                        onClose={handleSnackBarClose}
-                        severity={snackbarInfo.severity}>
-                        {snackbarInfo.message}
-                    </Alert>
-                </Snackbar>
-            </Container>
-        </main>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <main>
+                <Container maxWidth="sm" className={classes.contactForm}>
+                    <TextField
+                        name="email"
+                        label="メールアドレス"
+                        type="mail"
+                        required
+                        className={classes.textField}
+                        value={sendData.email}
+                        onChange={handleChange}
+                        inputRef={register({
+                            required: "required!",
+                            pattern: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/,                            
+                        })}
+                        error={Boolean(errors.email)}
+                        helperText={
+                            errors.email &&
+                            "メールアドレス形式で入力してください。"
+                        }
+                    />
+                    <TextField
+                        name="name"
+                        label="お名前"
+                        type="text"
+                        required
+                        className={classes.textField}
+                        value={sendData.name}
+                        onChange={handleChange}
+                        inputRef={register({
+                            required: "required!",
+                        })}
+                        error={Boolean(errors.name)}
+                        helperText={errors.name && "お名前を入力してください"}
+                    />
+                    <TextField
+                        name="content"
+                        label="お問合せ内容"
+                        required
+                        multiline
+                        rows="5"
+                        margin="normal"
+                        variant="outlined"
+                        className={classes.textField}
+                        value={sendData.content}
+                        onChange={handleChange}
+                        inputRef={register({
+                            required: "required!",
+                            maxLength: 300,
+                        })}
+                        error={Boolean(errors.content)}
+                        helperText={
+                            errors.content && "300文字以内にして下さい。"
+                        }
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        className={classes.textField}
+                    >
+                        送信
+                    </Button>
+                    <Backdrop className={classes.backdrop} open={loading}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+                    <Snackbar
+                        open={snackbarOpen}
+                        autoHideDuration={6000}
+                        onClose={handleSnackBarClose}>
+                        <Alert
+                            onClose={handleSnackBarClose}
+                            severity={snackbarInfo.severity}>
+                            {snackbarInfo.message}
+                        </Alert>
+                    </Snackbar>
+                </Container>
+            </main>
+        </form>
     );
 }
+
+export default Contact;
