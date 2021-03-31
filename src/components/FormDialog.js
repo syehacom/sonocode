@@ -166,8 +166,8 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                             <div className="carousel-caption">
                                 <div className="content">
                                     SONO
-                                    <br></br><span className="contentchild">
-                                    CODE &lt;/&gt;
+                                    <br></br><span className="contentchild1">
+                                    CODE <span className="contentchild2">&lt;/&gt;</span>
                                     </span>
                                 </div>
                             </div>

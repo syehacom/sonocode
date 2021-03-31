@@ -13,7 +13,7 @@ body,
     outline: none;
 }
 
-.all{
+.all {
     /* background-image : url("https://beiz.jp/images_L/wallpaper/wallpaper_00016.jpg"); */
     background-color: #fafbfd;
 }
@@ -405,15 +405,27 @@ main div p {
 
 .content {
     width: 60%;
-    font-family: 'Rubik';
+    font-family: "Rubik";
     font-size: 8.5vw;
     text-align: left;
     font-weight: bold;
     color: #fafbfd;
+    margin-left: 30px;
 }
-.contentchild{
-    font-family: 'Roboto'; color:#00d09c;
+
+.contentchild1 {
+    font-family: "Roboto";
+    color: #00d09c;
     font-size: 7.5vw;
+}
+
+.contentchild2 {
+    font-family: "Roboto";
+    font-size: 7.5vw;
+    color: #00d09c;
+    background: -webkit-linear-gradient(0deg, #acb6e5, #00d09c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .container {
