@@ -187,8 +187,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                             {/* <span role="img" aria-label="emoji">
                                             😃
                                         </span> */}
-                                            ページ名を共有して音声チャットやプレビューを
-                                            使いウェブデザインを教えたり、一緒に考えたりしよう。
+                                            ページ名を共有して音声チャットやプレビューを使いウェブデザインを教えたり、一緒に考えたりしよう。
                                         </p>
                                         <div className="movie">
                                             <Fab
