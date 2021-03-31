@@ -378,7 +378,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 </p>
                                 <div className="credit">
                                     SONOCODE　　©2021 Syehacom　　
-                                    <SocialIcon url="https://twitter.com/syeha_com" />
+                                    <SocialIcon
+                                        url="https://twitter.com/sonocode_syeha"
+                                    />
                                 </div>
                                 <br></br>
                                 <br></br>
