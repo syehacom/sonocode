@@ -18,6 +18,7 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ReactPlayer from "react-player";
 import Fab from "@material-ui/core/Fab";
 import { SocialIcon } from "react-social-icons";
+import * as FadeIn from "../components/FadeIn";
 
 const database = firebase.database();
 
@@ -31,7 +32,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
     const [dialog, setDialog] = useState("");
     const [random, setRandom] = useState(false);
     const [choice, setChoice] = useState(" を作成しますか");
-    const [openmov, setOpenmov] = React.useState(false);
+    const [openmov, setOpenmov] = useState(false);
 
     useEffect(() => {
         setOpen(isOpen);
@@ -166,178 +167,194 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                             <div className="carousel-caption">
                                 <div className="content">
                                     SONO
-                                    <br></br><span className="contentchild1">
-                                    CODE <span className="contentchild2">&lt;/&gt;</span>
+                                    <br></br>
+                                    <span className="contentchild1">
+                                        CODE{" "}
+                                        <span className="contentchild2">
+                                            &lt;/&gt;
+                                        </span>
                                     </span>
                                 </div>
                             </div>
                         </header>
                         <main>
-                            <div className="flex-container">
-                                <div className="flex-item">
-                                    <h1>そのコードを簡単&amp;便利に共有</h1>
-                                    <p>
-                                        まずは、ページを作成してみよう。
-                                        {/* <span role="img" aria-label="emoji">
+                            <FadeIn.Up>
+                                <div className="flex-container">
+                                    <div className="flex-item">
+                                        <h1>そのコードを簡単&amp;便利に共有</h1>
+                                        <p>
+                                            まずは、ページを作成してみよう。
+                                            {/* <span role="img" aria-label="emoji">
                                             😃
                                         </span> */}
-                                        ページ名を共有して音声チャットやプレビューを
-                                        使いウェブデザインを教えたり、一緒に考えたりしよう。
-                                    </p>
-                                    <div className="movie">
-                                        <Fab
-                                            variant="extended"
-                                            onClick={handleOpen}
-                                            className={classes.extendedIcon}>
-                                            動画を見てみよう
-                                        </Fab>
-                                        <Dialog
-                                            onClose={handleClose}
-                                            aria-labelledby="simple-dialog-title"
-                                            open={openmov}>
-                                            <ReactPlayer
-                                                url="https://youtu.be/Uu9F5Pug6jI"
-                                                height="500px"
-                                                width="600px"
-                                                controls
-                                                playing
-                                                muted
-                                            />
-                                        </Dialog>
+                                            ページ名を共有して音声チャットやプレビューを
+                                            使いウェブデザインを教えたり、一緒に考えたりしよう。
+                                        </p>
+                                        <div className="movie">
+                                            <Fab
+                                                variant="extended"
+                                                onClick={handleOpen}
+                                                className={
+                                                    classes.extendedIcon
+                                                }>
+                                                動画を見てみよう
+                                            </Fab>
+                                            <Dialog
+                                                onClose={handleClose}
+                                                aria-labelledby="simple-dialog-title"
+                                                open={openmov}>
+                                                <ReactPlayer
+                                                    url="https://youtu.be/Uu9F5Pug6jI"
+                                                    height="500px"
+                                                    width="600px"
+                                                    controls
+                                                    playing
+                                                    muted
+                                                />
+                                            </Dialog>
+                                        </div>
+                                    </div>
+                                    <div className="three flex-item"></div>
+                                </div>
+                            </FadeIn.Up>
+                            <FadeIn.Up>
+                                <div className="flex-container">
+                                    <div className="four flex-item"></div>
+                                    <div className="flex-item">
+                                        <h1>さあ、はじめてみよう！</h1>
+                                        <p>パソコンからご利用ください。</p>
+                                        <div className="toggle">
+                                            <ToggleButtonGroup
+                                                // orientation="vertical"
+                                                value={alignment}
+                                                exclusive
+                                                onChange={handleAlignment}
+                                                aria-label="text alignment">
+                                                <ToggleButton
+                                                    classes={{
+                                                        selected:
+                                                            classes.buttonColor,
+                                                        root: classes.root,
+                                                    }}
+                                                    value="left"
+                                                    aria-label="left aligned">
+                                                    作成する
+                                                </ToggleButton>
+                                                <ToggleButton
+                                                    classes={{
+                                                        selected:
+                                                            classes.buttonColor,
+                                                        root: classes.root,
+                                                    }}
+                                                    value="right"
+                                                    aria-label="right aligned">
+                                                    利用する
+                                                </ToggleButton>
+                                            </ToggleButtonGroup>
+                                            <DialogContent>
+                                                {/* <DialogContentText></DialogContentText> */}
+                                                <TextField
+                                                    inputProps={{
+                                                        style: { fontSize: 18 },
+                                                    }} // font size of input text
+                                                    InputLabelProps={{
+                                                        style: { fontSize: 18 },
+                                                    }} // font size of input label
+                                                    defaultValue=""
+                                                    autoFocus
+                                                    name="body"
+                                                    margin="normal"
+                                                    id="name"
+                                                    label="ページ名"
+                                                    type="text"
+                                                    className={
+                                                        classes.textField
+                                                    }
+                                                    fullWidth
+                                                    onChange={(e) =>
+                                                        setValid(e.target.value)
+                                                    }
+                                                    inputRef={register({
+                                                        required: true,
+                                                        minLength: 10,
+                                                        // pattern: /^([a-zA-Z0-9]{10,})$/,
+                                                    })}
+                                                    error={Boolean(errors.body)}
+                                                    helperText={
+                                                        errors.body &&
+                                                        "10文字以上にして下さい。"
+                                                    }
+                                                />
+                                            </DialogContent>
+                                            <DialogActions>
+                                                {valid && (
+                                                    <Button
+                                                        disabled={Boolean(
+                                                            errors.body
+                                                        )}
+                                                        type="submit"
+                                                        onClick={handleDo}
+                                                        color="primary">
+                                                        OK
+                                                    </Button>
+                                                )}
+                                                {!valid && (
+                                                    <Button
+                                                        disabled={Boolean(
+                                                            alignment ===
+                                                                "right"
+                                                        )}
+                                                        type="submit"
+                                                        onClick={makeRandom}
+                                                        color="primary">
+                                                        ランダム
+                                                    </Button>
+                                                )}
+                                            </DialogActions>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="three flex-item"></div>
-                            </div>
-                            <div className="flex-container">
-                                <div className="four flex-item"></div>
-                                <div className="flex-item">
-                                    <h1>さあ、はじめてみよう！</h1>
-                                    <p>
-                                        パソコンからご利用ください。</p>
-                                    <div className="toggle">
-                                        <ToggleButtonGroup
-                                            // orientation="vertical"
-                                            value={alignment}
-                                            exclusive
-                                            onChange={handleAlignment}
-                                            aria-label="text alignment">
-                                            <ToggleButton
-                                                classes={{
-                                                    selected:
-                                                        classes.buttonColor,
-                                                    root: classes.root,
-                                                }}
-                                                value="left"
-                                                aria-label="left aligned">
-                                                作成する
-                                            </ToggleButton>
-                                            <ToggleButton
-                                                classes={{
-                                                    selected:
-                                                        classes.buttonColor,
-                                                    root: classes.root,
-                                                }}
-                                                value="right"
-                                                aria-label="right aligned">
-                                                利用する
-                                            </ToggleButton>
-                                        </ToggleButtonGroup>
-                                        <DialogContent>
-                                            {/* <DialogContentText></DialogContentText> */}
-                                            <TextField
-                                                inputProps={{
-                                                    style: { fontSize: 18 },
-                                                }} // font size of input text
-                                                InputLabelProps={{
-                                                    style: { fontSize: 18 },
-                                                }} // font size of input label
-                                                defaultValue=""
-                                                autoFocus
-                                                name="body"
-                                                margin="normal"
-                                                id="name"
-                                                label="ページ名"
-                                                type="text"
-                                                className={classes.textField}
-                                                fullWidth
-                                                onChange={(e) =>
-                                                    setValid(e.target.value)
-                                                }
-                                                inputRef={register({
-                                                    required: true,
-                                                    minLength: 10,
-                                                    // pattern: /^([a-zA-Z0-9]{10,})$/,
-                                                })}
-                                                error={Boolean(errors.body)}
-                                                helperText={
-                                                    errors.body &&
-                                                    "10文字以上にして下さい。"
-                                                }
-                                            />
-                                        </DialogContent>
-                                        <DialogActions>
-                                            {valid && (
-                                                <Button
-                                                    disabled={Boolean(
-                                                        errors.body
-                                                    )}
-                                                    type="submit"
-                                                    onClick={handleDo}
-                                                    color="primary">
-                                                    OK
-                                                </Button>
-                                            )}
-                                            {!valid && (
-                                                <Button
-                                                    disabled={Boolean(
-                                                        alignment === "right"
-                                                    )}
-                                                    type="submit"
-                                                    onClick={makeRandom}
-                                                    color="primary">
-                                                    ランダム
-                                                </Button>
-                                            )}
-                                        </DialogActions>
+                            </FadeIn.Up>
+                            <FadeIn.Up>
+                                <div className="user">
+                                    <h1>ニーズに合った使い方をしよう</h1>
+                                </div>
+                                <div className="flex-card">
+                                    <div className="flex-item">
+                                        <MediaCard
+                                            shop1={
+                                                "https://thumbs.dreamstime.com/z/programing-language-design-illustration-eps-graphic-65093426.jpg"
+                                            }
+                                            shop2={"プログラミング教室"}
+                                            shop3={
+                                                "リモートでの運営に適しています"
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex-item">
+                                        <MediaCard
+                                            shop1={
+                                                "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-big-tablet-ps-phone-flat-modern-illustration-programmer-laptop-using-programmimg-137771074.jpg"
+                                            }
+                                            shop2={"障がいがある方への支援"}
+                                            shop3={
+                                                "事業所での作業や訓練に活用できます"
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex-item">
+                                        <MediaCard
+                                            shop1={
+                                                "https://image.freepik.com/free-vector/programmer-concept-illustration_114360-2284.jpg"
+                                            }
+                                            shop2={"クライアントとの打合せ"}
+                                            shop3={
+                                                "デザインの確認や共有に役に立ちます"
+                                            }
+                                        />
                                     </div>
                                 </div>
-                            </div>
-                            <div className="user">
-                                <h1>ニーズに合った使い方をしよう</h1>
-                            </div>
-                            <div className="flex-card">
-                                <div className="flex-item">
-                                    <MediaCard
-                                        shop1={
-                                            "https://thumbs.dreamstime.com/z/programing-language-design-illustration-eps-graphic-65093426.jpg"
-                                        }
-                                        shop2={"プログラミング教室"}
-                                        shop3={"リモートでの運営に適しています"}
-                                    />
-                                </div>
-                                <div className="flex-item">
-                                    <MediaCard
-                                        shop1={
-                                            "https://thumbs.dreamstime.com/z/young-programmers-coding-new-project-big-tablet-ps-phone-flat-modern-illustration-programmer-laptop-using-programmimg-137771074.jpg"
-                                        }
-                                        shop2={"障がいがある方への就労支援"}
-                                        shop3={
-                                            "事業所での作業や訓練に活用できます"
-                                        }
-                                    />
-                                </div>
-                                <div className="flex-item">
-                                    <MediaCard
-                                        shop1={
-                                            "https://image.freepik.com/free-vector/programmer-concept-illustration_114360-2284.jpg"
-                                        }
-                                        shop2={"クライアントとの打合せ"}
-                                        shop3={
-                                            "デザインの確認や共有に役に立ちます"
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            </FadeIn.Up>
                         </main>
                         <footer className="container">
                             <div style={{ marginTop: 1 + "em" }}></div>
