@@ -14,7 +14,8 @@ body,
 }
 
 .all{
-    background-image : url("https://beiz.jp/images_L/wallpaper/wallpaper_00016.jpg");
+    /* background-image : url("https://beiz.jp/images_L/wallpaper/wallpaper_00016.jpg"); */
+    background-color: #fafbfd;
 }
 
 .nav-bar {
@@ -407,7 +408,7 @@ main div p {
     font-size: 7.5vw;
     text-align: left;
     font-weight: bold;
-    color: #e7e5e5;
+    color: #fafbfd;
 }
 
 .container {
@@ -480,4 +481,5 @@ main div p {
 
 .movie {
     margin-left: 30px;
+    margin-top: 50px;
 }

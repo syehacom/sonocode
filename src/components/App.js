@@ -36,15 +36,15 @@ const introDoc = `<html>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
         <div style="font-family: 'Lato'" class="intro-text">
         <h1 style="font-size: 30px"><br>
-        はじめよう<span style="font-family: 'Rubik'; color:#b8b8b8">プログラミング</span>
+        はじめてみよう<span style="font-family: 'Rubik'; color:#b8b8b8">プログラミング</span>
         </h1>
         <br><br><br>
         <h2 style="font-size: 20px">
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
         音声ボタンからチャットに参加、マイクボタンでミュート操作ができます<br>
         ページボタンでプレビュー、HTML、CSS、JSの各ボタンからファイルを
-        <br>ダウンロードで保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
-        30日間で消去</span>されます。
+        <br>ダウンロードして保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
+        10日後に消去</span>されます。
         </h2><br><br><br>
         <footer>
         </footer>

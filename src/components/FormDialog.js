@@ -141,7 +141,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
             marginRight: theme.spacing(1),
             backgroundColor: "#3f51b5",
             color: "#ffffff",
-            fontSize:"20px"
+            fontSize:"22px"
         },
     }));
     const classes = useStyles();
@@ -176,7 +176,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         </span> */}
                                         ページ名を共有して音声チャットやプレビューを
                                         使いウェブデザインを教えたり、一緒に考えたりしよう。
-                                        （パソコンからご利用ください）
                                     </p>
                                     <div className="movie">
                                         <Fab
@@ -348,7 +347,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     ・ 虚偽や事実誤認の内容を含むもの ・
                                     わいせつな表現等不適切な内容を含むもの ・
                                     その他、当サイトが不適切と判断したもの。
-                                    一定期間後にページは完全に削除されますが、
+                                    一定期間後にページは完全に消去されますが、
                                     作成したページが破壊、消失または変更された場合で
                                     あっても当サイトは一切責任を負いません。
                                 </p>
