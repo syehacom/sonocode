@@ -17,6 +17,8 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ReactPlayer from "react-player";
 import Fab from "@material-ui/core/Fab";
+import { SocialIcon } from "react-social-icons";
+
 const database = firebase.database();
 
 const FormDialog = ({ isOpen, doClose, setValue }) => {
@@ -162,7 +164,12 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                         <header>
                             <div className="two"></div>
                             <div className="carousel-caption">
-                                <div className="content">SONOCODE</div>
+                                <div className="content">
+                                    SONO
+                                    <br></br><span className="contentchild">
+                                    CODE &lt;/&gt;
+                                    </span>
+                                </div>
                             </div>
                         </header>
                         <main>
@@ -352,7 +359,8 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     あっても当サイトは一切責任を負いません。
                                 </p>
                                 <div className="credit">
-                                    SONOCODE　　©2021 Syehacom
+                                    SONOCODE　　©2021 Syehacom　　
+                                    <SocialIcon url="https://twitter.com/syeha_com" />
                                 </div>
                                 <br></br>
                                 <br></br>

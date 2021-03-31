@@ -318,7 +318,7 @@ body,
 }
 
 .two {
-    height: 25vw;
+    height: 27vw;
     margin-bottom: 70px;
     width: 100%;
     opacity: 0.7;
@@ -405,10 +405,15 @@ main div p {
 
 .content {
     width: 60%;
-    font-size: 7.5vw;
+    font-family: 'Rubik';
+    font-size: 8.5vw;
     text-align: left;
     font-weight: bold;
     color: #fafbfd;
+}
+.contentchild{
+    font-family: 'Roboto'; color:#00d09c;
+    font-size: 7.5vw;
 }
 
 .container {
