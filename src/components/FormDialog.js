@@ -322,7 +322,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         }
                                         shop2={"障がいがある方への就労支援"}
                                         shop3={
-                                            "事業所での作業や訓練にご利用ください"
+                                            "事業所での作業や訓練に活用できます"
                                         }
                                     />
                                 </div>
