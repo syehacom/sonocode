@@ -43,8 +43,8 @@ const introDoc = `<html>
         アクセスしているユーザーとリアルタイムな共有と音声チャットができます<br>
         音声ボタンからチャットに参加、マイクボタンでミュート操作ができます<br>
         ページボタンでプレビュー、HTML、CSS、JSの各ボタンからファイルを
-        <br>ダウンロードして保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
-        10日後に消去</span>されます。
+        <br>ダウンロード保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
+        一定期間後に消去</span>されます。
         </h2><br><br><br>
         <footer>
         </footer>

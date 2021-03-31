@@ -212,6 +212,8 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                 <div className="four flex-item"></div>
                                 <div className="flex-item">
                                     <h1>さあ、はじめてみよう！</h1>
+                                    <p>
+                                        パソコンからご利用ください。</p>
                                     <div className="toggle">
                                         <ToggleButtonGroup
                                             // orientation="vertical"
