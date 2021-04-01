@@ -8,8 +8,8 @@ import {
     faMicrophoneSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import firebase from "../utils/Firebase";
-// const database = firebase.database();
+import firebase from "../utils/Firebase";
+const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
 const Skyway = ({ value, selected, count }) => {
@@ -29,20 +29,19 @@ const Skyway = ({ value, selected, count }) => {
     useEffect(() => {
         if (selected === true) {
             makeCall();
-            // database.ref("data/" + value + "/count").set(count + 1);
+            database.ref("data/" + value + "/count").set(count + 1);
         } else {
             if (mount === true) {
                 leaveCall();
-                // if (count > 0) {
-                //     database.ref("data/" + value + "/count").set(count - 1);
-                // }
+                if (count > 0) {
+                    database.ref("data/" + value + "/count").set(count - 1);
+                }
             }
         }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     }, [selected]);
 
     const makeCall = () => {
-
         navigator.mediaDevices
             .getUserMedia({ video: false, audio: true })
             .then((localStream) => {
@@ -80,12 +79,12 @@ const Skyway = ({ value, selected, count }) => {
         setConnect(false);
     };
 
-    // if (connect === true && count > 0) {
-    //     database
-    //         .ref("data/" + value + "/count")
-    //         .onDisconnect()
-    //         .set("data/" + count - 1);
-    // }
+    if (connect === true && count > 0) {
+        database
+            .ref("data/" + value + "/count")
+            .onDisconnect()
+            .set(count - 1);
+    }
 
     const handleChange = (event) => {
         setState(event.target.checked);

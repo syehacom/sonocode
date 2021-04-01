@@ -7,12 +7,12 @@ import {
     faEraser,
     faInfoCircle,
     faPager,
+    faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-// import Badge from "@material-ui/core/Badge";
+import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import CopyToClipBoard from "react-copy-to-clipboard";
 import firebase from "../utils/Firebase";
@@ -76,7 +76,7 @@ function App() {
     const [openTip, setOpenTip] = useState(false);
     const [emerge, setEmerge] = useState(false);
     const [page, setPage] = useState(false);
-    // const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);
 
     const title = value;
 
@@ -95,9 +95,9 @@ function App() {
             setJs(data.val());
         });
 
-        // database.ref("data/" + title + "/count").on("value", (data) => {
-        //     setCount(data.val());
-        // });
+        database.ref("data/" + title + "/count").on("value", (data) => {
+            setCount(data.val());
+        });
     }, [title]);
 
     const downloadHtml = () => {
@@ -272,7 +272,7 @@ function App() {
                                 color="primary"
                                 disabled={value === ""}
                                 onClick={handleClickButton}>
-                                <AssignmentIcon />
+                                <FontAwesomeIcon icon={faCopy} />
                             </IconButton>
                         </CopyToClipBoard>
                     </Tooltip>
@@ -301,8 +301,8 @@ function App() {
                         onChange={() => {
                             setSelected(!selected);
                         }}>
-                        音声
-                        {/* <Badge badgeContent={count} color="secondary"></Badge> */}
+                        音声{"　"}
+                        <Badge badgeContent={count} color="secondary"></Badge>
                     </ToggleButton>
                     <div></div>
                     <div className="page open" onClick={pageOpen}>
@@ -353,7 +353,11 @@ function App() {
                                 閉じる
                             </Button>
                         </DialogActions>
-                        <Contact doNo={() => { setInfo(false) }} />
+                        <Contact
+                            doNo={() => {
+                                setInfo(false);
+                            }}
+                        />
                         {/* <DialogTitle id="scroll-dialog-title">
                             SONOCODE サービス利用規約
                         </DialogTitle> */}
@@ -521,11 +525,7 @@ function App() {
                 className="text-center">
                 {/* <FontAwesomeIcon icon={faGithub} />
                 <span>&nbsp;syehacom</span> */}
-                <Skyway
-                    // count={count}
-                    value={value}
-                    selected={selected}
-                />
+                <Skyway count={count} value={value} selected={selected} />
             </div>
         </div>
     );
