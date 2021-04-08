@@ -221,7 +221,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     <div className="four flex-item"></div>
                                     <div className="flex-item">
                                         <h1>さあ、はじめてみよう！</h1>
-                                        <p>パソコンからご利用ください。</p>
+                                        <p>PC版 GoogleChrome でご利用ください。</p>
                                         <div className="toggle">
                                             <ToggleButtonGroup
                                                 // orientation="vertical"
@@ -377,8 +377,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                     あっても当サイトは一切責任を負いません。
                                 </p>
                                 <div className="credit">
-                                    SONOCODE　　©2021 Syehacom　　
+                                    SONOCODE　　©2021 Syehacom　
                                     <SocialIcon
+                                        style={{ height: 35, width: 35 }}
                                         url="https://twitter.com/sonocode_syeha"
                                     />
                                 </div>

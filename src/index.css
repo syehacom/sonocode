@@ -6,7 +6,7 @@ body,
     margin: 0;
     height: 100%;
     font-family: "Inter", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 * {
@@ -19,7 +19,7 @@ body,
 }
 
 .nav-bar {
-    padding: 6px 10px;
+    padding: 3px 10px;
     background-color: #1f2023;
     border-bottom: #545454 5px solid;
 }
@@ -123,7 +123,7 @@ body,
 .title {
     font-family: "Rubik";
     border-style: hidden;
-    font-size: 16px;
+    font-size: 15px;
     background-color: #1f2023;
     color: #ffffff;
     text-align: center;
@@ -197,6 +197,11 @@ body,
 
 .box2 .box22 {
     flex: 1 1 auto;
+}
+
+.box3 {
+    min-height: 10vh;
+    max-height: 50vh;
 }
 
 .gutter {
@@ -276,12 +281,12 @@ body,
 #github-link {
     position: absolute;
     right: 20px;
-    bottom: 10px;
+    bottom: 7px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     background: black;
     color: white;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 3px 10px;
     border-radius: 20px;
     transition: all 1s;
 }
@@ -302,14 +307,14 @@ body,
     );
 }
 #github-link:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
 }
 #github-link:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
 }
 #github-link:hover:before {
     opacity: 1;
-    transform: translateY(5px);
+    transform: translateY(3px);
 }
 
 .container {
@@ -318,7 +323,7 @@ body,
 }
 
 .two {
-    height: 27vw;
+    height: 25vw;
     margin-bottom: 70px;
     width: 100%;
     opacity: 0.7;
@@ -352,7 +357,7 @@ header {
 }
 
 header div {
-    padding-top: 20px;
+    padding-top: 10px;
     /* padding-left: 20px; */
 }
 
@@ -460,6 +465,10 @@ main div p {
     margin-top: 30px;
 }
 
+.MuiInputBase-input.Mui-disabled {
+    background-color: #7c7c7c;
+}
+
 .credit {
     font-family: Rubik;
     color: #b8b8b8;
@@ -500,3 +509,53 @@ main div p {
     margin-left: 30px;
     margin-top: 50px;
 }
+
+.text0 {
+    display: flex;
+    height: 45px;
+    background: hsl(0, 0%, 33%);
+    justify-content: flex-start;
+}
+
+.text1 {
+    height: 45px;
+    background: hsl(0, 0%, 33%);
+    font-size: 25px;
+    line-height: 45px;
+    color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.text2 {
+    height: 45px;
+    background: hsl(0, 0%, 33%);
+    font-size: 20px;
+    line-height: 45px;
+    color: #ffffff;
+    white-space: pre;
+    overflow-x: scroll;
+}
+
+.text2::-webkit-scrollbar {
+    display: none;
+}
+
+.text3 {
+    height: 45px;
+    background: hsl(0, 0%, 33%);
+    font-size: 20px;
+    line-height: 45px;
+    color: #ffffff;
+    padding-right: 420px;
+}
+
+.text4 {
+ position: absolute; 
+ right: 120px;
+}
+
+
+
+
+
+

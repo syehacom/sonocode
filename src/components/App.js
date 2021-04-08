@@ -8,6 +8,7 @@ import {
     faInfoCircle,
     faPager,
     faCopy,
+    faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
@@ -26,6 +27,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import TextField from "@material-ui/core/TextField";
+import { useSpeechSynthesis } from "react-speech-kit";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // import LocalStorage from "../hooks/useLocalStorage";
@@ -41,7 +44,7 @@ const introDoc = `<html>
         <br><br><br>
         <h2 style="font-size: 20px">
         同じページにアクセスしているユーザーとリアルタイムな共有ができます<br>
-        音声ボタンからチャットに参加、マイクボタンはミュート機能になります<br>
+        接続ボタンからチャットに参加、マイクボタンはミュート機能になります<br>
         ページボタンでプレビュー、HTML、CSS、JSの各ボタンからファイルを
         <br>ダウンロードで保存してください、ページは<span style="font-family: 'Rubik'; color:#ba000d">
         一定期間後に消去</span>されます
@@ -77,6 +80,9 @@ function App() {
     const [emerge, setEmerge] = useState(false);
     const [page, setPage] = useState(false);
     const [count, setCount] = useState(0);
+    const [text, setText] = useState("");
+    const [speakOn, setSpeakOn] = useState("");
+    const { speak } = useSpeechSynthesis();
 
     const title = value;
 
@@ -231,12 +237,33 @@ function App() {
         });
     });
 
+    const setsSpeak = () => {
+        database.ref("text/" + value + "/speak").set(speakOn);
+        setSpeakOn("");
+        database.ref("text/" + value + "/speak").set("");
+    };
+
+    useEffect(() => {
+        database.ref("text/" + title + "/listen").on("value", (data) => {
+            setText(data.val());
+        });
+    });
+
+    useEffect(() => {
+        database.ref("text/" + value + "/speak").on("value", (data) => {
+            speak({ text: data.val() });
+        });
+        // eslint-disable-next-line
+    },[value]);
+
+
     const useStyles = makeStyles({
         root: {
             background: "#3f51b5",
+            height: "40px",
             width: "100px",
             color: "#7c7c7c",
-            fontSize: "16px",
+            fontSize: "15px",
             fontFamily: "Rubik",
             // fontWeight: "bold",
             "&:hover": {
@@ -252,7 +279,21 @@ function App() {
                 background: "#757ce8",
             },
         },
+        textField: {
+            backgroundColor: "#ffffff",
+            fontFamily: "Rubik",
+            margin: "3px",
+            fontSize: "15px",
+        },
+        button: {
+            backgroundColor: "#757ce8",
+            color: "#ffffff",
+            "&:hover": {
+                background: "#757ce8",
+            },
+        },
     });
+
     const classes = useStyles();
 
     return (
@@ -301,7 +342,7 @@ function App() {
                         onChange={() => {
                             setSelected(!selected);
                         }}>
-                        音声{"　"}
+                        接続　
                         <Badge badgeContent={count} color="secondary"></Badge>
                     </ToggleButton>
                     <div></div>
@@ -517,6 +558,43 @@ function App() {
                     />
                 </div>
             </Split>
+            <div className="text0">
+                <FontAwesomeIcon icon={faComment} className="text1" />
+                {selected ? <div className="text2">{text}</div> : null}
+                <div className="text4">
+                    <TextField
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                setsSpeak();
+                            }
+                        }}
+                        disabled={Boolean(selected === false)}
+                        defaultValue=""
+                        variant="outlined"
+                        value={speakOn}
+                        autoFocus
+                        type="text"
+                        onChange={(event) => setSpeakOn(event.target.value)}
+                        className={classes.textField}
+                        size="small"
+                    />
+                    <Button
+                        disabled={Boolean(selected === false)}
+                        type="submit"
+                        onClick={setsSpeak}
+                        className={classes.button}>
+                        発信
+                    </Button>
+                </div>
+                <div className="text3"></div>
+            </div>
+            {/* <Chat
+                chOpen={chat}
+                chClose={() => {
+                    setChat(false);
+                }}
+                value={value}
+            /> */}
             <div
                 // href="https://github.com/syehacom"
                 target="_blank"

@@ -9,6 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "../utils/Firebase";
+import SpeechRecognition, {
+    useSpeechRecognition,
+} from "react-speech-recognition";
+
 const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
@@ -20,6 +24,7 @@ const Skyway = ({ value, selected, count }) => {
     const [connect, setConnect] = useState(false);
     const localVideo = useRef(null);
     const remoteVideo = useRef(null);
+    const { transcript, resetTranscript } = useSpeechRecognition();
 
     useEffect(() => {
         setCallId(value);
@@ -38,8 +43,16 @@ const Skyway = ({ value, selected, count }) => {
                 }
             }
         }
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [selected]);
+
+    useEffect(() => {
+        database.ref("text/" + value + "/listen").set(transcript);
+        if (transcript.length > 50) {
+            resetTranscript();
+        }
+        // eslint-disable-next-line
+    }, [transcript]);
 
     const makeCall = () => {
         navigator.mediaDevices
@@ -50,7 +63,7 @@ const Skyway = ({ value, selected, count }) => {
                     .getAudioTracks()
                     .forEach((track) => (track.enabled = false));
                 setConnect(true);
-        
+
                 const mediaConnection = peer.joinRoom(callId, {
                     mode: "sfu",
                     stream: localVideo.current.srcObject,
@@ -66,7 +79,7 @@ const Skyway = ({ value, selected, count }) => {
                         stream,
                     ]);
                 });
-            })
+            });
     };
 
     const leaveCall = () => {
@@ -77,6 +90,7 @@ const Skyway = ({ value, selected, count }) => {
         mediaConnection.close();
         setState(true);
         setConnect(false);
+        stopHandle();
     };
 
     if (connect === true && count > 0) {
@@ -85,6 +99,10 @@ const Skyway = ({ value, selected, count }) => {
             .onDisconnect()
             .set(count - 1);
     }
+    database
+        .ref("text/" + value + "/listen")
+        .onDisconnect()
+        .set("");
 
     const handleChange = (event) => {
         setState(event.target.checked);
@@ -92,6 +110,22 @@ const Skyway = ({ value, selected, count }) => {
         localVideo.current.srcObject
             .getAudioTracks()
             .forEach((track) => (track.enabled = state));
+        if (state === true) {
+            handleListing();
+        } else {
+            stopHandle();
+        }
+    };
+
+    const handleListing = () => {
+        SpeechRecognition.startListening({
+            continuous: true,
+            language: "ja",
+        });
+    };
+
+    const stopHandle = () => {
+        SpeechRecognition.stopListening();
     };
 
     const RemoteVideo = (props) => {

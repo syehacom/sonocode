@@ -34,7 +34,7 @@ export default function MediaCard({ shop1, shop2, shop3 } ) {
                         {shop2}
                     </Typography>
                     <Typography
-                        variant="body2"
+                        variant="body1"
                         color="h3"
                         component="p">
                     {shop3}</Typography>
