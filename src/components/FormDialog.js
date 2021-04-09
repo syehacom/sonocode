@@ -5,8 +5,6 @@ import { makeStyles } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
-// import DialogTitle from "@material-ui/core/DialogTitle";
 import Fade from "@material-ui/core/Fade";
 import Codialog from "./Codialog";
 import Redialog from "./Redialog";
@@ -19,6 +17,8 @@ import ReactPlayer from "react-player";
 import Fab from "@material-ui/core/Fab";
 import { SocialIcon } from "react-social-icons";
 import * as FadeIn from "../components/FadeIn";
+// import DialogContentText from "@material-ui/core/DialogContentText";
+// import DialogTitle from "@material-ui/core/DialogTitle";
 
 const database = firebase.database();
 
@@ -144,7 +144,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
             marginRight: theme.spacing(1),
             backgroundColor: "#3f51b5",
             color: "#ffffff",
-            fontSize:"22px"
+            fontSize: "22px",
         },
     }));
     const classes = useStyles();

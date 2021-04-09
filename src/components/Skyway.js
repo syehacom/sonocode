@@ -166,7 +166,6 @@ const Skyway = ({ value, selected, count }) => {
                             color="secondary"
                         />
                     }
-                    // label="On"
                 />
                 {state ? (
                     <FontAwesomeIcon icon={faMicrophoneSlash} />

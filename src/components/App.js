@@ -8,7 +8,6 @@ import {
     faInfoCircle,
     faPager,
     faCopy,
-    faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { makeStyles } from "@material-ui/core";
@@ -28,12 +27,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
-import { useSpeechSynthesis } from "react-speech-kit";
+// import { useSpeechSynthesis } from "react-speech-kit";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // import LocalStorage from "../hooks/useLocalStorage";
-const database = firebase.database();
 
+const database = firebase.database();
 const introDoc = `<html>
       <body>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
@@ -68,6 +67,7 @@ function App() {
     // const [css, setCss] = LocalStorage("css", "");
     // const [js, setJs] = LocalStorage("js", "");
     // const [title, setTitle] = LocalStorage("title", "");
+    // const { speak, cancel } = useSpeechSynthesis();
     const [srcDoc, setSrcDoc] = useState("");
     const [html, setHtml] = useState("");
     const [css, setCss] = useState("");
@@ -82,7 +82,7 @@ function App() {
     const [count, setCount] = useState(0);
     const [text, setText] = useState("");
     const [speakOn, setSpeakOn] = useState("");
-    const { speak } = useSpeechSynthesis();
+    const [listen, setListen] = useState(true);
 
     const title = value;
 
@@ -205,6 +205,10 @@ function App() {
         database.ref("data/" + title + "/js").set(value);
     };
 
+    const listenChange = () => {
+        setListen(!listen);
+    };
+
     useEffect(() => {
         if (title === "") {
             document.title = "SONOCODE";
@@ -238,6 +242,7 @@ function App() {
     });
 
     const setsSpeak = () => {
+        database.ref("text/" + value + "/listen").set(speakOn);
         database.ref("text/" + value + "/speak").set(speakOn);
         setSpeakOn("");
         database.ref("text/" + value + "/speak").set("");
@@ -249,23 +254,21 @@ function App() {
         });
     });
 
-    useEffect(() => {
-        database.ref("text/" + value + "/speak").on("value", (data) => {
-            speak({ text: data.val() });
-        });
-        // eslint-disable-next-line
-    },[value]);
-
+    // useEffect(() => {
+    //     database.ref("text/" + value + "/speak").on("value", (data) => {
+    //         speak({ text: data.val() });
+    //     });
+    //     // eslint-disable-next-line
+    // }, [value]);
 
     const useStyles = makeStyles({
         root: {
             background: "#3f51b5",
             height: "40px",
             width: "100px",
-            color: "#7c7c7c",
+            color: "rgba(0, 0, 0, 0.26)",
             fontSize: "15px",
             fontFamily: "Rubik",
-            // fontWeight: "bold",
             "&:hover": {
                 background: "#3f51b5",
             },
@@ -285,12 +288,55 @@ function App() {
             margin: "3px",
             fontSize: "15px",
         },
-        button: {
+        buttontrue: {
             backgroundColor: "#757ce8",
             color: "#ffffff",
+            fontFamily: "Rubik",
+            fontSize: "15px",
             "&:hover": {
                 background: "#757ce8",
             },
+            height: "35px",
+            marginTop: "5px",
+            marginLeft: "10px",
+        },
+        buttonfalse: {
+            backgroundColor: "#3f51b5",
+            color: "#ffffff",
+            fontFamily: "Rubik",
+            fontSize: "15px",
+            "&:hover": {
+                background: "#3f51b5",
+            },
+            height: "35px",
+            marginTop: "5px",
+            marginLeft: "10px",
+        },
+        listenbuttontrue: {
+            backgroundColor: "#757ce8",
+            color: "#ffffff",
+            fontFamily: "Rubik",
+            fontSize: "15px",
+            "&:hover": {
+                background: "#757ce8",
+            },
+            height: "35px",
+            marginTop: "5px",
+            marginLeft: "10px",
+            marginRight: "10px",
+        },
+        listenbuttonfalse: {
+            backgroundColor: "#3f51b5",
+            color: "rgba(0, 0, 0, 0.26)",
+            fontFamily: "Rubik",
+            fontSize: "15px",
+            "&:hover": {
+                background: "#3f51b5",
+            },
+            height: "35px",
+            marginTop: "5px",
+            marginLeft: "10px",
+            marginRight: "10px",
         },
     });
 
@@ -399,9 +445,6 @@ function App() {
                                 setInfo(false);
                             }}
                         />
-                        {/* <DialogTitle id="scroll-dialog-title">
-                            SONOCODE サービス利用規約
-                        </DialogTitle> */}
                         <DialogContent dividers>
                             <DialogContentText id="scroll-dialog-description">
                                 サービス利用規約<br></br>
@@ -559,8 +602,22 @@ function App() {
                 </div>
             </Split>
             <div className="text0">
-                <FontAwesomeIcon icon={faComment} className="text1" />
-                {selected ? <div className="text2">{text}</div> : null}
+                {listen ? (
+                    <Button
+                        disabled={Boolean(selected === false)}
+                        onClick={listenChange}
+                        className={classes.listenbuttontrue}>
+                        字幕
+                    </Button>
+                ) : (
+                    <Button
+                        disabled={Boolean(selected === false)}
+                        onClick={listenChange}
+                        className={classes.listenbuttonfalse}>
+                        字幕
+                    </Button>
+                )}
+                {listen ? <div className="text2">{text}</div> : null}
                 <div className="text4">
                     <TextField
                         onKeyPress={(e) => {
@@ -578,23 +635,26 @@ function App() {
                         className={classes.textField}
                         size="small"
                     />
-                    <Button
-                        disabled={Boolean(selected === false)}
-                        type="submit"
-                        onClick={setsSpeak}
-                        className={classes.button}>
-                        発信
-                    </Button>
+                    {selected ? (
+                        <Button
+                            disabled={Boolean(selected === false)}
+                            type="submit"
+                            onClick={setsSpeak}
+                            className={classes.buttontrue}>
+                            発信
+                        </Button>
+                    ) : (
+                        <Button
+                            disabled={Boolean(selected === false)}
+                            type="submit"
+                            onClick={setsSpeak}
+                            className={classes.buttonfalse}>
+                            発信
+                        </Button>
+                    )}
                 </div>
                 <div className="text3"></div>
             </div>
-            {/* <Chat
-                chOpen={chat}
-                chClose={() => {
-                    setChat(false);
-                }}
-                value={value}
-            /> */}
             <div
                 // href="https://github.com/syehacom"
                 target="_blank"
