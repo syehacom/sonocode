@@ -243,9 +243,9 @@ function App() {
 
     const setsSpeak = () => {
         database.ref("text/" + value + "/listen").set(speakOn);
-        database.ref("text/" + value + "/speak").set(speakOn);
+        // database.ref("text/" + value + "/speak").set(speakOn);
         setSpeakOn("");
-        database.ref("text/" + value + "/speak").set("");
+        // database.ref("text/" + value + "/speak").set("");
     };
 
     useEffect(() => {
