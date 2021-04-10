@@ -106,7 +106,6 @@ const Skyway = ({ value, selected, count }) => {
 
     const handleChange = (event) => {
         setState(event.target.checked);
-        console.log(state);
         localVideo.current.srcObject
             .getAudioTracks()
             .forEach((track) => (track.enabled = state));

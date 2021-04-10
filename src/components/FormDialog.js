@@ -67,7 +67,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                 .ref("data/" + valid)
                 .once("value", (snapshot) => {
                     if (snapshot.exists()) {
-                        console.log("exists!");
                         setEnter(true);
                         setDialog("すでに使われています");
                     } else {
@@ -94,7 +93,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                         setCommDlg(false);
                         handleCancel();
                     } else {
-                        console.log("not exists!");
                         setEnter(true);
                         setDialog("ページがありません");
                     }
@@ -105,7 +103,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
     const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data); // 送信するデータ
+        // console.log(data); // 送信するデータ
     };
 
     const comment = title;
