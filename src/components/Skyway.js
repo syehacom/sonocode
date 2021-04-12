@@ -16,7 +16,7 @@ import SpeechRecognition, {
 const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
-const Skyway = ({ value, selected, count }) => {
+const Skyway = ({ value, selected, count, color}) => {
     const [state, setState] = useState(true);
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
@@ -51,6 +51,7 @@ const Skyway = ({ value, selected, count }) => {
         if (transcript.length > 50) {
             resetTranscript();
         }
+        database.ref("text/" + value + "/color").set(color);
         // eslint-disable-next-line
     }, [transcript]);
 

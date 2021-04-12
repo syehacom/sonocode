@@ -531,7 +531,7 @@ main div p {
     background: hsl(0, 0%, 33%);
     font-size: 20px;
     line-height: 50px;
-    color: #ffffff;
+    /* color: #ffffff; */
     white-space: pre;
     overflow-x: scroll;
 }

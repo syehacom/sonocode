@@ -31,8 +31,17 @@ import TextField from "@material-ui/core/TextField";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // import LocalStorage from "../hooks/useLocalStorage";
-
 const database = firebase.database();
+const rangeRndm = function (min, max) {
+    if (max) {
+        return (Math.random() * (max - min + 1) + min) | 0;
+    } else {
+        return (Math.random() * min) | 0;
+    }
+};
+const myColor =
+    "hsl(" + rangeRndm(0, 360) + ", 100%, 75%)";
+
 const introDoc = `<html>
       <body>
         <div style="height: 100vh; background-image: radial-gradient(circle, #263238, #212226);">
@@ -83,6 +92,7 @@ function App() {
     const [text, setText] = useState("");
     const [speakOn, setSpeakOn] = useState("");
     const [listen, setListen] = useState(true);
+    const [color, setColor] = useState("");
 
     const title = value;
 
@@ -243,6 +253,7 @@ function App() {
 
     const setsSpeak = () => {
         database.ref("text/" + value + "/listen").set(speakOn);
+        database.ref("text/" + value + "/color").set(myColor);
         // database.ref("text/" + value + "/speak").set(speakOn);
         setSpeakOn("");
         // database.ref("text/" + value + "/speak").set("");
@@ -251,6 +262,9 @@ function App() {
     useEffect(() => {
         database.ref("text/" + title + "/listen").on("value", (data) => {
             setText(data.val());
+        });
+        database.ref("text/" + title + "/color").on("value", (data) => {
+            setColor(data.val());
         });
     });
 
@@ -617,7 +631,11 @@ function App() {
                         字幕
                     </Button>
                 )}
-                {listen ? <div className="text2">{text}</div> : null}
+                {listen ? (
+                    <div className="text2" style={{ color: color }}>
+                        {text}
+                    </div>
+                ) : null}
                 <div className="text4">
                     <TextField
                         onKeyPress={(e) => {
@@ -663,7 +681,7 @@ function App() {
                 className="text-center">
                 {/* <FontAwesomeIcon icon={faGithub} />
                 <span>&nbsp;syehacom</span> */}
-                <Skyway count={count} value={value} selected={selected} />
+                <Skyway count={count} value={value} selected={selected} color={myColor}/>
             </div>
         </div>
     );
