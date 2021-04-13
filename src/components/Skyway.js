@@ -71,9 +71,9 @@ const Skyway = ({ value, selected, count, color }) => {
                 //     console.log(peerId);
                 //     setJoinCheck(peerId);
                 // });
-                mediaConnection.on("peerLeave", (peerId) => {
-                    handleRemove(peerId);
-                });
+                // mediaConnection.on("peerLeave", (peerId) => {
+                //     handleRemove(peerId);
+                // });
                 mediaConnection.on("stream", async (stream) => {
                     setRemoteVideoData((oldRemoteVideoData) => [
                         ...oldRemoteVideoData,
@@ -96,9 +96,9 @@ const Skyway = ({ value, selected, count, color }) => {
         stopHandle();
     };
 
-    const handleRemove = (peerId) => {
-        console.log(peerId);  
-    };
+    // const handleRemove = (peerId) => {
+    //     console.log(peerId);  
+    // };
 
     if (connect === true && count > 0) {
         database
