@@ -27,7 +27,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
-// import { useSpeechSynthesis } from "react-speech-kit";
+import { useSpeechSynthesis } from "react-speech-kit";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 // import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // import LocalStorage from "../hooks/useLocalStorage";
@@ -39,8 +39,7 @@ const rangeRndm = function (min, max) {
         return (Math.random() * min) | 0;
     }
 };
-const myColor =
-    "hsl(" + rangeRndm(0, 360) + ", 100%, 75%)";
+const myColor = "hsl(" + rangeRndm(0, 360) + ", 100%, 75%)";
 
 const introDoc = `<html>
       <body>
@@ -76,7 +75,7 @@ function App() {
     // const [css, setCss] = LocalStorage("css", "");
     // const [js, setJs] = LocalStorage("js", "");
     // const [title, setTitle] = LocalStorage("title", "");
-    // const { speak, cancel } = useSpeechSynthesis();
+    const { speak } = useSpeechSynthesis();
     const [srcDoc, setSrcDoc] = useState("");
     const [html, setHtml] = useState("");
     const [css, setCss] = useState("");
@@ -114,6 +113,7 @@ function App() {
         database.ref("data/" + title + "/count").on("value", (data) => {
             setCount(data.val());
         });
+        database.ref("text/" + title + "/speak").set("");
     }, [title]);
 
     const downloadHtml = () => {
@@ -254,9 +254,9 @@ function App() {
     const setsSpeak = () => {
         database.ref("text/" + value + "/listen").set(speakOn);
         database.ref("text/" + value + "/color").set(myColor);
-        // database.ref("text/" + value + "/speak").set(speakOn);
+        database.ref("text/" + value + "/speak").set(speakOn);
         setSpeakOn("");
-        // database.ref("text/" + value + "/speak").set("");
+        database.ref("text/" + value + "/speak").set("");
     };
 
     useEffect(() => {
@@ -268,12 +268,18 @@ function App() {
         });
     });
 
-    // useEffect(() => {
-    //     database.ref("text/" + value + "/speak").on("value", (data) => {
-    //         speak({ text: data.val() });
-    //     });
-    //     // eslint-disable-next-line
-    // }, [value]);
+    useEffect(() => {
+        let isMount = true;
+        if (selected === true) {
+            database.ref("text/" + value + "/speak").on("value", (data) => {
+                if (isMount) speak({ text: data.val() });
+            });
+        }
+        return () => {
+            isMount = false;
+        };
+        // eslint-disable-next-line
+    }, [selected]);
 
     const useStyles = makeStyles({
         root: {
@@ -352,6 +358,12 @@ function App() {
             marginLeft: "10px",
             marginRight: "10px",
         },
+        icon: {
+            color: "#3f51b5",
+            "&:hover": {
+                color: "#757ce8",
+            },
+        },
     });
 
     const classes = useStyles();
@@ -370,7 +382,9 @@ function App() {
                         title="コピーしました">
                         <CopyToClipBoard text={value}>
                             <IconButton
-                                color="primary"
+                                classes={{
+                                    root: classes.icon,
+                                }}
                                 disabled={value === ""}
                                 onClick={handleClickButton}>
                                 <FontAwesomeIcon icon={faCopy} />
@@ -631,7 +645,7 @@ function App() {
                         字幕
                     </Button>
                 )}
-                {listen ? (
+                {listen && selected ? (
                     <div className="text2" style={{ color: color }}>
                         {text}
                     </div>
@@ -681,7 +695,12 @@ function App() {
                 className="text-center">
                 {/* <FontAwesomeIcon icon={faGithub} />
                 <span>&nbsp;syehacom</span> */}
-                <Skyway count={count} value={value} selected={selected} color={myColor}/>
+                <Skyway
+                    count={count}
+                    value={value}
+                    selected={selected}
+                    color={myColor}
+                />
             </div>
         </div>
     );

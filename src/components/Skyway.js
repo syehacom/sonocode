@@ -16,14 +16,13 @@ import SpeechRecognition, {
 const database = firebase.database();
 const peer = new Peer({ key: process.env.REACT_APP_SKYWAY_KEY });
 
-const Skyway = ({ value, selected, count, color}) => {
+const Skyway = ({ value, selected, count, color }) => {
     const [state, setState] = useState(true);
     const [callId, setCallId] = useState("");
     const [mount, setMount] = useState(false);
     const [remoteVideoData, setRemoteVideoData] = useState([]);
     const [connect, setConnect] = useState(false);
     const localVideo = useRef(null);
-    const remoteVideo = useRef(null);
     const { transcript, resetTranscript } = useSpeechRecognition();
 
     useEffect(() => {
@@ -64,15 +63,16 @@ const Skyway = ({ value, selected, count, color}) => {
                     .getAudioTracks()
                     .forEach((track) => (track.enabled = false));
                 setConnect(true);
-
                 const mediaConnection = peer.joinRoom(callId, {
                     mode: "sfu",
                     stream: localVideo.current.srcObject,
                 });
-                peer.on("open", (mediaConnection) => {
-                    mediaConnection.on("stream", async (stream) => {
-                        remoteVideo.current.srcObject = stream;
-                    });
+                // mediaConnection.on("peerJoin", (peerId) => {
+                //     console.log(peerId);
+                //     setJoinCheck(peerId);
+                // });
+                mediaConnection.on("peerLeave", (peerId) => {
+                    handleRemove(peerId);
                 });
                 mediaConnection.on("stream", async (stream) => {
                     setRemoteVideoData((oldRemoteVideoData) => [
@@ -84,6 +84,8 @@ const Skyway = ({ value, selected, count, color}) => {
     };
 
     const leaveCall = () => {
+        const allVideo = [];
+        setRemoteVideoData(allVideo);
         const mediaConnection = peer.joinRoom(callId, {
             mode: "sfu",
             stream: localVideo.current.srcObject,
@@ -92,6 +94,10 @@ const Skyway = ({ value, selected, count, color}) => {
         setState(true);
         setConnect(false);
         stopHandle();
+    };
+
+    const handleRemove = (peerId) => {
+        console.log(peerId);  
     };
 
     if (connect === true && count > 0) {
@@ -128,19 +134,20 @@ const Skyway = ({ value, selected, count, color}) => {
         SpeechRecognition.stopListening();
     };
 
-    const RemoteVideo = (props) => {
+    const RemoteVideo = ({ videoData, peerId }) => {
         const videoRef = useRef();
         useEffect(() => {
-            videoRef.current.srcObject = props.videoData;
+            videoRef.current.srcObject = videoData;
         });
         return (
             <div className="remoteVideo">
                 <audio
-                    // width="200px"
+                    // width="80px"
                     autoPlay
                     // playsInline
                     // muted
-                    ref={videoRef}></audio>
+                    ref={videoRef}
+                    id={peerId}></audio>
             </div>
         );
     };
@@ -149,7 +156,7 @@ const Skyway = ({ value, selected, count, color}) => {
         <div>
             <div>
                 <audio
-                    // width="200px"
+                    // width="80px"
                     autoPlay
                     muted
                     // playsInline
@@ -174,7 +181,13 @@ const Skyway = ({ value, selected, count, color}) => {
                 )}
             </div>
             {remoteVideoData.map((videoData, index) => {
-                return <RemoteVideo key={index} videoData={videoData} />;
+                return (
+                    <RemoteVideo
+                        key={index}
+                        peerId={videoData.peerId}
+                        videoData={videoData}
+                    />
+                );
             })}
         </div>
     );
