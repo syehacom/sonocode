@@ -17,7 +17,6 @@ import ReactPlayer from "react-player";
 import Fab from "@material-ui/core/Fab";
 import { SocialIcon } from "react-social-icons";
 import * as FadeIn from "../components/FadeIn";
-import Grid from "@material-ui/core/Grid";
 // import DialogContentText from "@material-ui/core/DialogContentText";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 
@@ -150,7 +149,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
 
     return (
         <div className="open">
-            <Grid container justify="center">
                 <span>{setValue(comment)}</span>
                 <form onChange={handleSubmit(onSubmit)}>
                     <Dialog
@@ -430,7 +428,6 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                         }}
                     />
                 )}
-            </Grid>
         </div>
     );
 };
