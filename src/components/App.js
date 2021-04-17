@@ -87,11 +87,12 @@ function App() {
     const [openTip, setOpenTip] = useState(false);
     const [emerge, setEmerge] = useState(false);
     const [page, setPage] = useState(false);
-    const [count, setCount] = useState(0);
     const [text, setText] = useState("");
     const [speakOn, setSpeakOn] = useState("");
     const [listen, setListen] = useState(true);
     const [color, setColor] = useState("");
+    const [videoCount, setVideoCount] = useState("")
+    const [count, setCount] = useState(0);
 
     const title = value;
 
@@ -114,6 +115,7 @@ function App() {
             setCount(data.val());
         });
         database.ref("text/" + title + "/speak").set("");
+        database.ref("text/" + title + "/listen").set("");
     }, [title]);
 
     const downloadHtml = () => {
@@ -417,7 +419,9 @@ function App() {
                             setSelected(!selected);
                         }}>
                         接続　
-                        <Badge badgeContent={count} color="secondary"></Badge>
+                        <Badge
+                            badgeContent={videoCount}
+                            color="secondary"></Badge>
                     </ToggleButton>
                     <div></div>
                     <div className="page open" onClick={pageOpen}>
@@ -647,7 +651,7 @@ function App() {
                 )}
                 {listen && selected ? (
                     <div className="text2" style={{ color: color }}>
-                        {text}
+                        {text.slice(-45)}
                     </div>
                 ) : null}
                 <div className="text4">
@@ -700,6 +704,8 @@ function App() {
                     value={value}
                     selected={selected}
                     color={myColor}
+                    setVideoCount={setVideoCount}
+                    videoCount={videoCount}
                 />
             </div>
         </div>
