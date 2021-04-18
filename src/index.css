@@ -271,13 +271,20 @@ body,
     opacity: 1;
     transform: translateY(3px);
 }
-.container {
-    width: 100%;
-    margin: 0 auto;
-}
 .two {
     height: 25vw;
     margin-bottom: 70px;
+    width: 100%;
+    opacity: 0.7;
+    /* background-color: black; */
+    filter: brightness(0.2);
+    background-repeat: no-repeat;
+    background: url("https://images.unsplash.com/photo-1506097425191-7ad538b29cef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
+        center;
+}
+._two {
+    height: 70vw;
+    margin-bottom: 30px;
     width: 100%;
     opacity: 0.7;
     /* background-color: black; */
@@ -321,6 +328,16 @@ main div h1 {
     font-size: 45px;
     margin-left: 30px;
 }
+main div h2 {
+    margin-top: 10px;
+    font-size: 10vw;
+    text-align: center;
+}
+main div h3 {
+    margin-top: 10px;
+    font-size: 5vw;
+    text-align: center;
+}
 main div p {
     width: 550px;
     font-size: 25px;
@@ -331,23 +348,49 @@ main div p {
     justify-content: space-evenly;
     margin-top: 100px;
 }
+._flex-container {
+    display: block;
+    justify-content: space-around;
+    margin-top: 10px;
+}
 .flex-card {
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
 }
+._flex-card {
+    display: block;
+}
+._flex-use {
+    width: 100%;
+    margin: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 10px;
+}
 .flex-item {
     margin: 30px auto;
     padding: 5px 10px;
     box-sizing: border-box;
-    /* background-color: #343434;
-	color: #fff; */
+}
+._flex-item {
+    margin-bottom: 30px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .carousel-caption {
     position: absolute;
     top: 1vw;
     left: 2vw;
     width: 70%;
+}
+._carousel-caption {
+    position: absolute;
+    top: 1vw;
+    left: 2vw;
+    width: 80%;
 }
 .content {
     width: 60%;
@@ -358,14 +401,36 @@ main div p {
     color: #fafbfd;
     margin-left: 30px;
 }
+._content {
+    width: 100%;
+    font-family: "Rubik";
+    font-size: 25vw;
+    font-weight: bold;
+    color: #fafbfd;
+    padding: 0;
+    margin-left: 30px;
+}
 .contentchild1 {
     font-family: "Roboto";
     color: #00d09c;
     font-size: 7.5vw;
 }
+._contentchild1 {
+    font-family: "Roboto";
+    color: #00d09c;
+    font-size: 18vw;
+}
 .contentchild2 {
     font-family: "Roboto";
     font-size: 7.5vw;
+    color: #00d09c;
+    background: -webkit-linear-gradient(0deg, #acb6e5, #00d09c);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+._contentchild2 {
+    font-family: "Roboto";
+    font-size: 8vw;
     color: #00d09c;
     background: -webkit-linear-gradient(0deg, #acb6e5, #00d09c);
     background-clip: text;
@@ -381,6 +446,12 @@ main div p {
     text-align: justify;
     margin-top: 150px;
 }
+._footer {
+    padding: 5vw 5vw;
+    text-align: justify;
+    margin-top: 15px;
+    font-size: 12px;
+}
 .toggle {
     width: 600px;
     margin: 30px auto;
@@ -390,6 +461,15 @@ main div p {
     border-top: solid 5px #5d627b;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
     margin-bottom: 80px;
+}
+._toggle {
+    width: 100%;
+    margin: auto;
+    padding: auto;
+    color: #5d627b;
+    background: white;
+    border-top: solid 5px #5d627b;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 }
 .MuiButton-label {
     font-size: 18px;
@@ -408,6 +488,13 @@ main div p {
     font-size: 30px;
     margin-bottom: 0px;
 }
+._credit {
+    font-family: Rubik;
+    color: #b8b8b8;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
 .flexblock.blink li > a {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -420,10 +507,6 @@ main div p {
     padding: 2.4rem;
     position: relative;
 }
-.slick-list {
-    margin-top: 500px;
-    width: 1000px;
-}
 .user {
     margin-top: 100px;
     margin-bottom: 100px;
@@ -435,6 +518,10 @@ main div p {
 .movie {
     margin-left: 30px;
     margin-top: 50px;
+}
+._movie {
+    margin-top: 30px;
+    text-align: center;
 }
 .text0 {
     display: flex;
@@ -463,6 +550,19 @@ main div p {
 .text2::-webkit-scrollbar {
     display: none;
 }
+._text2 {
+    height: 50px;
+    background: hsl(0, 0%, 33%);
+    font-size: 20px;
+    line-height: 50px;
+    padding-left: 15px;
+    /* color: #ffffff; */
+    white-space: pre;
+    overflow-x: scroll;
+}
+._text2::-webkit-scrollbar {
+    display: none;
+}
 .text3 {
     height: 50px;
     background: hsl(0, 0%, 33%);
@@ -471,11 +571,16 @@ main div p {
     color: #ffffff;
     padding-right: 420px;
 }
+._text3 {
+    height: 50px;
+    background: hsl(0, 0%, 33%);
+    font-size: 20px;
+    line-height: 50px;
+    color: #ffffff;
+    padding-right: 90px;
+}
 .text4 {
     position: absolute;
     right: 120px;
 }
-video {
-    border-radius: 10px;
-    padding-top: 3px;
-}
+
