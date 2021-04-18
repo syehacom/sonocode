@@ -18,11 +18,16 @@ import Fab from "@material-ui/core/Fab";
 import { SocialIcon } from "react-social-icons";
 import * as FadeIn from "../components/FadeIn";
 import useMedia from "use-media";
+import "firebase/auth";
 
 // import DialogContentText from "@material-ui/core/DialogContentText";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 
 const database = firebase.database();
+firebase
+    .auth()
+    .signInAnonymously()
+    .catch((error) => console.log(error));
 
 const FormDialog = ({ isOpen, doClose, setValue }) => {
     const [open, setOpen] = useState(false);
