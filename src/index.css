@@ -245,13 +245,26 @@ body,
     border-radius: 20px;
     transition: all 1s;
 }
-#github-link:before {
+#_github-link {
+    position: static;
+    height: 25px;
+    bottom: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background: black;
+    color: white;
+    text-decoration: none;
+    padding: 3px 10px;
+    border-radius: 20px;
+    transition: all 1s;
+}
+#_github-link:before {
     content: "";
     border: 1px;
-    position: absolute;
+    position: static;
     top: 105%;
     left: -1%;
-    height: 20px;
+    height: 25px;
     opacity: 0;
     transition: 0.8s all;
     transition-delay: 0.1ms;
@@ -529,6 +542,12 @@ main div p {
     background: hsl(0, 0%, 33%);
     justify-content: flex-start;
 }
+._text0 {
+    display: flex;
+    height: 50px;
+    background: hsl(0, 0%, 33%);
+    justify-content:flex-end;
+}
 .text1 {
     height: 45px;
     background: hsl(0, 0%, 33%);
@@ -555,7 +574,7 @@ main div p {
     background: hsl(0, 0%, 33%);
     font-size: 20px;
     line-height: 50px;
-    padding-left: 15px;
+    padding-left: 10px;
     /* color: #ffffff; */
     white-space: pre;
     overflow-x: scroll;
@@ -577,7 +596,7 @@ main div p {
     font-size: 20px;
     line-height: 50px;
     color: #ffffff;
-    padding-right: 90px;
+    padding-left: 10px;
 }
 .text4 {
     position: absolute;

@@ -226,7 +226,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         <div className="flex-item">
                                             <h1>はじめてみよう！</h1>
                                             <p>
-                                                PC版 GoogleChrome
+                                                GoogleChrome
                                                 でご利用ください。
                                             </p>
                                             <div className="toggle">
@@ -467,8 +467,7 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                         <div className="_flex-item">
                                             <h2>はじめてみよう！</h2>
                                             <h3>
-                                                PC版 GoogleChrome<br></br>
-                                                でご利用ください。
+                                                GoogleChromeでご利用ください。
                                             </h3>
                                             <div className="_toggle">
                                                 <ToggleButtonGroup

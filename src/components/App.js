@@ -707,18 +707,18 @@ function App() {
                         onChange={setsJs}
                     />
                 </Split>
-                {isWide ?
-                <div className="pane box22">
-                    <iframe
-                        srcDoc={srcDoc}
-                        title="output"
-                        id="iframe"
-                        sandbox="allow-scripts allow-popups allow-modals"
-                        frameBorder="0"
-                        width="100%"
-                        height="100%"
-                        className="disblock"
-                    />
+                {isWide ? (
+                    <div className="pane box22">
+                        <iframe
+                            srcDoc={srcDoc}
+                            title="output"
+                            id="iframe"
+                            sandbox="allow-scripts allow-popups allow-modals"
+                            frameBorder="0"
+                            width="100%"
+                            height="100%"
+                            className="disblock"
+                        />
                         <iframe
                             srcDoc={introDoc}
                             title="intro"
@@ -728,17 +728,19 @@ function App() {
                             width="100%"
                             height="100%"
                         />
-                </div>  :  <div className="pane box22">
-                    <iframe
-                        srcDoc={srcDoc}
-                        title="output"
-                        id="iframe"
-                        sandbox="allow-scripts allow-popups allow-modals"
-                        frameBorder="0"
-                        width="100%"
-                        height="100%"
-                        className="disblock"
-                    />
+                    </div>
+                ) : (
+                    <div className="pane box22">
+                        <iframe
+                            srcDoc={srcDoc}
+                            title="output"
+                            id="iframe"
+                            sandbox="allow-scripts allow-popups allow-modals"
+                            frameBorder="0"
+                            width="100%"
+                            height="100%"
+                            className="disblock"
+                        />
                         <iframe
                             srcDoc={_introDoc}
                             title="intro"
@@ -748,7 +750,8 @@ function App() {
                             width="100%"
                             height="100%"
                         />
-                </div>}
+                    </div>
+                )}
             </Split>
             {isWide ? (
                 <div className="text0">
@@ -808,34 +811,47 @@ function App() {
                         )}
                     </div>
                     <div className="text3"></div>
+                    <div
+                        // href="https://github.com/syehacom"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        id="github-link"
+                        className="text-center">
+                        {/* <FontAwesomeIcon icon={faGithub} />
+                <span>&nbsp;syehacom</span> */}
+                        <Skyway
+                            count={count}
+                            value={value}
+                            selected={selected}
+                            color={myColor}
+                            setVideoCount={setVideoCount}
+                            videoCount={videoCount}
+                        />
+                    </div>
                 </div>
             ) : (
-                <div className="text0">
+                <div className="_text0">
                     {listen && selected ? (
                         <div className="_text2" style={{ color: color }}>
-                            {text.slice(-15)}
+                            {text.slice(-12)}
                         </div>
                     ) : null}
-                    <div className="_text3"></div>
+                    <div
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        id="_github-link"
+                        className="text-center">
+                        <Skyway
+                            count={count}
+                            value={value}
+                            selected={selected}
+                            color={myColor}
+                            setVideoCount={setVideoCount}
+                            videoCount={videoCount}
+                        />
+                    </div>
                 </div>
             )}
-            <div
-                // href="https://github.com/syehacom"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="github-link"
-                className="text-center">
-                {/* <FontAwesomeIcon icon={faGithub} />
-                <span>&nbsp;syehacom</span> */}
-                <Skyway
-                    count={count}
-                    value={value}
-                    selected={selected}
-                    color={myColor}
-                    setVideoCount={setVideoCount}
-                    videoCount={videoCount}
-                />
-            </div>
         </div>
     );
 }
