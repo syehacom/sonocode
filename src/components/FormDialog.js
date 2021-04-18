@@ -339,9 +339,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                                 shop1={
                                                     "https://thumbs.dreamstime.com/z/programing-language-design-illustration-eps-graphic-65093426.jpg"
                                                 }
-                                                shop2={"プログラミング教室"}
+                                                shop2={"プログラミングの授業"}
                                                 shop3={
-                                                    "リモートでの運営に適しています"
+                                                    "リモートでの教室運営に適しています"
                                                 }
                                             />
                                         </div>
@@ -582,9 +582,9 @@ const FormDialog = ({ isOpen, doClose, setValue }) => {
                                                 shop1={
                                                     "https://thumbs.dreamstime.com/z/programing-language-design-illustration-eps-graphic-65093426.jpg"
                                                 }
-                                                shop2={"プログラミング教室"}
+                                                shop2={"プログラミングの授業"}
                                                 shop3={
-                                                    "リモートでの運営に適しています"
+                                                    "リモートでの教室運営に適しています"
                                                 }
                                             />
                                         </div>

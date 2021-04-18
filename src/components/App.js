@@ -835,7 +835,7 @@ function App() {
                         <div className="_text2" style={{ color: color }}>
                             {text.slice(-12)}
                         </div>
-                    ) : null}
+                    ) : <div></div>}
                     <div
                         target="_blank"
                         rel="noopener noreferrer"
